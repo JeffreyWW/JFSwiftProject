@@ -15,7 +15,7 @@
 		997B712B3E8F087C83DD47DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 997B725D9BEE37B55FB7CC09 /* LaunchScreen.storyboard */; };
 		997B748EAA2B7C171AB09BB2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 997B7863185848AEE6D7F48D /* Assets.xcassets */; };
 		997B767F0D388804A162B2D0 /* HYController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7D83A75249491DF88B01 /* HYController.swift */; };
-		997B778476DD51854C2A18A1 /* JFApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B72B167177D08E3E67E01 /* JFApi.swift */; };
+		997B7BAA847080CB326BB1F4 /* JFApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7F2B5D726400119EB5C4 /* JFApi.swift */; };
 		997B7BD1490CD42017DCEBF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7D5FDC82358C57BDFF59 /* AppDelegate.swift */; };
 		997B7E163098E0520DB71C84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 997B72E4B5A82ADD08EF6057 /* Main.storyboard */; };
 /* End PBXBuildFile section */
@@ -29,13 +29,13 @@
 		569D2277EF9F17B06CDDE914 /* Pods-JFSwiftProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JFSwiftProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JFSwiftProject/Pods-JFSwiftProject.debug.xcconfig"; sourceTree = "<group>"; };
 		997B7084519A9B5CB7484570 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		997B72AAE4B233028954FE82 /* JFSwiftProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JFSwiftProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		997B72B167177D08E3E67E01 /* JFApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFApi.swift; sourceTree = "<group>"; };
 		997B7863185848AEE6D7F48D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		997B798C2913485BC0F91CE7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		997B7A7026FC8F0DB24E0C7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		997B7D3B29C88EEA680CCF88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		997B7D5FDC82358C57BDFF59 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		997B7D83A75249491DF88B01 /* HYController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HYController.swift; sourceTree = "<group>"; };
+		997B7F2B5D726400119EB5C4 /* JFApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFApi.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +70,6 @@
 		997B7529419FFA1E1549D3E9 /* JFSwiftProject */ = {
 			isa = PBXGroup;
 			children = (
-				997B7DCBD2F733F915D18324 /* JFApi */,
 				997B7084519A9B5CB7484570 /* Info.plist */,
 				997B7863185848AEE6D7F48D /* Assets.xcassets */,
 				997B725D9BEE37B55FB7CC09 /* LaunchScreen.storyboard */,
@@ -81,14 +80,23 @@
 				00444119224CCF0D0082F497 /* JFController.xib */,
 				997B7D83A75249491DF88B01 /* HYController.swift */,
 				00759001224DAE5E00FDC1E6 /* HYController.xib */,
+				997B753171F3E0CD4D522FEA /* Jeffrey */,
 			);
 			path = JFSwiftProject;
 			sourceTree = "<group>";
 		};
-		997B7DCBD2F733F915D18324 /* JFApi */ = {
+		997B753171F3E0CD4D522FEA /* Jeffrey */ = {
 			isa = PBXGroup;
 			children = (
-				997B72B167177D08E3E67E01 /* JFApi.swift */,
+				997B76211445FFE88FCB2814 /* JFApi */,
+			);
+			path = Jeffrey;
+			sourceTree = "<group>";
+		};
+		997B76211445FFE88FCB2814 /* JFApi */ = {
+			isa = PBXGroup;
+			children = (
+				997B7F2B5D726400119EB5C4 /* JFApi.swift */,
 			);
 			path = JFApi;
 			sourceTree = "<group>";
@@ -243,8 +251,8 @@
 				997B7BD1490CD42017DCEBF2 /* AppDelegate.swift in Sources */,
 				00444118224CCEB90082F497 /* JFController.swift in Sources */,
 				997B70D2586F8DB02187E14A /* ViewController.swift in Sources */,
-				997B778476DD51854C2A18A1 /* JFApi.swift in Sources */,
 				997B767F0D388804A162B2D0 /* HYController.swift in Sources */,
+				997B7BAA847080CB326BB1F4 /* JFApi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
