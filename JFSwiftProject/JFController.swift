@@ -20,13 +20,11 @@ class JFController: UIViewController {
         let provider = MoyaProvider<JFApi>()
         let ob = provider.rx.request(.home)
 //        let ob2 = self.vm.obHome
-        self.vm.obHome.subscribe(onCompleted: {
-            print("结束")
-        }, onError: { error in
-            print("错误")
+        self.vm.obHome.subscribe(onNext: { any in print(any)  }, onError: { error in
+            print(error)
         })
-        self.vm.obLogin.subscribe(onCompleted: {
-            print("111")
+        self.vm.obLogin.subscribe(onNext: { any in }, onCompleted: {
+
         })
         // Do any additional setup after loading the view, typically from a nib.
     }
