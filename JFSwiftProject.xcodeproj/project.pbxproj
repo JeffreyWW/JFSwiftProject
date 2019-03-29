@@ -12,11 +12,14 @@
 		00759002224DAE5E00FDC1E6 /* HYController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00759001224DAE5E00FDC1E6 /* HYController.xib */; };
 		370376ED32FB69EE7CF8A169 /* Pods_JFSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E76825BFAF9A44C46FBB082 /* Pods_JFSwiftProject.framework */; };
 		997B70D2586F8DB02187E14A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B798C2913485BC0F91CE7 /* ViewController.swift */; };
+		997B711F01E76D66481E945B /* TestPlugins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7BDAEFA0CE7664038BD2 /* TestPlugins.swift */; };
 		997B712B3E8F087C83DD47DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 997B725D9BEE37B55FB7CC09 /* LaunchScreen.storyboard */; };
+		997B733B435BC37023576577 /* JFHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7E9C2FD6B697BA8FE23C /* JFHomeViewModel.swift */; };
 		997B748EAA2B7C171AB09BB2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 997B7863185848AEE6D7F48D /* Assets.xcassets */; };
 		997B767F0D388804A162B2D0 /* HYController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7D83A75249491DF88B01 /* HYController.swift */; };
 		997B7BAA847080CB326BB1F4 /* JFApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7F2B5D726400119EB5C4 /* JFApi.swift */; };
 		997B7BD1490CD42017DCEBF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7D5FDC82358C57BDFF59 /* AppDelegate.swift */; };
+		997B7DA979E631A7339B8A0B /* JFLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B71C7BD862CCAEB724412 /* JFLoginViewModel.swift */; };
 		997B7E163098E0520DB71C84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 997B72E4B5A82ADD08EF6057 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -28,13 +31,16 @@
 		3F593327A0789CACEC73F719 /* Pods-JFSwiftProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JFSwiftProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-JFSwiftProject/Pods-JFSwiftProject.release.xcconfig"; sourceTree = "<group>"; };
 		569D2277EF9F17B06CDDE914 /* Pods-JFSwiftProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JFSwiftProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JFSwiftProject/Pods-JFSwiftProject.debug.xcconfig"; sourceTree = "<group>"; };
 		997B7084519A9B5CB7484570 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
+		997B71C7BD862CCAEB724412 /* JFLoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFLoginViewModel.swift; sourceTree = "<group>"; };
 		997B72AAE4B233028954FE82 /* JFSwiftProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JFSwiftProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		997B7863185848AEE6D7F48D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		997B798C2913485BC0F91CE7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		997B7A7026FC8F0DB24E0C7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		997B7BDAEFA0CE7664038BD2 /* TestPlugins.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestPlugins.swift; sourceTree = "<group>"; };
 		997B7D3B29C88EEA680CCF88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		997B7D5FDC82358C57BDFF59 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		997B7D83A75249491DF88B01 /* HYController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HYController.swift; sourceTree = "<group>"; };
+		997B7E9C2FD6B697BA8FE23C /* JFHomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFHomeViewModel.swift; sourceTree = "<group>"; };
 		997B7F2B5D726400119EB5C4 /* JFApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFApi.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,6 +73,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		997B72CFC0879FE899E5FB61 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				997B71C7BD862CCAEB724412 /* JFLoginViewModel.swift */,
+				997B7E9C2FD6B697BA8FE23C /* JFHomeViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		997B7529419FFA1E1549D3E9 /* JFSwiftProject */ = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				997B76211445FFE88FCB2814 /* JFApi */,
+				997B72CFC0879FE899E5FB61 /* ViewModels */,
 			);
 			path = Jeffrey;
 			sourceTree = "<group>";
@@ -97,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				997B7F2B5D726400119EB5C4 /* JFApi.swift */,
+				997B7BDAEFA0CE7664038BD2 /* TestPlugins.swift */,
 			);
 			path = JFApi;
 			sourceTree = "<group>";
@@ -253,6 +270,9 @@
 				997B70D2586F8DB02187E14A /* ViewController.swift in Sources */,
 				997B767F0D388804A162B2D0 /* HYController.swift in Sources */,
 				997B7BAA847080CB326BB1F4 /* JFApi.swift in Sources */,
+				997B7DA979E631A7339B8A0B /* JFLoginViewModel.swift in Sources */,
+				997B733B435BC37023576577 /* JFHomeViewModel.swift in Sources */,
+				997B711F01E76D66481E945B /* TestPlugins.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

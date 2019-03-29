@@ -6,8 +6,13 @@
 import Foundation
 import Moya
 
+
+class JFApiProvider: MoyaProvider<JFApi> {
+    static let normal = JFApiProvider(plugins: [TestPlugins()])
+}
+
 enum JFApi {
-    case login(phone: String, passwd: String)
+    case login(phone: String, password: String)
     case home
 }
 
@@ -30,12 +35,17 @@ extension JFApi: TargetType {
         return Data.init()
     }
     public var task: Task {
+        var parameters: [String: Any] = [:]
         switch self {
-        case let .login(phone, passwd):
-            return .requestParameters(parameters: ["phone": phone, "password": passwd], encoding: URLEncoding.default)
+        case let .login(phone, password):
+            parameters = ["phone": phone, "password": password]
+        case .home:
+            parameters = ["home": "lalala"]
         default:
-            return .requestParameters(parameters: [:], encoding: URLEncoding.default)
+            break
         }
+
+        return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
     }
     public var headers: [String: String]? {
         return nil
