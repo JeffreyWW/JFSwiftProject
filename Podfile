@@ -5,6 +5,7 @@ platform :ios, '9.0'
 
 target 'JFSwiftProject' do
   pod 'Moya/RxSwift', '~> 12.0'
+  pod 'RxCocoa',    '~> 4.0'
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
