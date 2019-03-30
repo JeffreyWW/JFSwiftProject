@@ -70,7 +70,11 @@ extension JFApi: TargetType {
         return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
     }
     public var headers: [String: String]? {
-        return nil
+        return ["Content-Type": "application/json"]
     }
+
+}
+
+class aaa: Decodable {
 
 }
