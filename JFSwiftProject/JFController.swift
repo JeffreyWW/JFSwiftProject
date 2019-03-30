@@ -16,15 +16,32 @@ class JFController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let res  = JFApiResponse()
         self.navigationItem.title = "Jeffrey"
         let provider = MoyaProvider<JFApi>()
         let ob = provider.rx.request(.home)
 //        let ob2 = self.vm.obHome
-        self.vm.obHome.subscribe(onNext: { any in print(any) }, onError: { error in
+        self.vm.obHome.subscribe(onNext: { any in
+//            let dic = any as! Dictionary<String, String>
+//            let code = dic["reason"]
+            print(any)
+        }, onError: { error in
             print(error)
         })
-        self.vm.obLogin.subscribe(onNext: { any in }, onCompleted: {
+        let e = JFError.system(error: .overTime)
+        switch e {
+        case .api:
+            print("")
+        case let .system(error):
+            switch error {
+            case .overTime:
+                break
+            }
+            print("")
+        }
+//        self.vm.obLogin.subscribe(onNext: { any in }, onCompleted: {
+//
+//        })
 
-        })
     }
 }
