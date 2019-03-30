@@ -10,9 +10,9 @@ import RxSwift
 class JFHomeViewModel {
     let data = ""
     lazy var obHome = {
-        JFApiProvider.normal.rx.request(.home).asObservable().mapString()
+        JFProviderManager.normal.rx.request(.home).asObservable().mapString()
     }()
     lazy var obLogin = {
-        JFApiProvider.normal.rx.request(.login(phone: "", password: "")).asObservable().mapString()
+        JFProviderManager.normal.rx.request(.login(phone: "", password: "")).asObservable().mapString()
     }()
 }

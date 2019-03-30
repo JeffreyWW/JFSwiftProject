@@ -6,9 +6,9 @@
 import Foundation
 import Moya
 
-
-class JFApiProvider: MoyaProvider<JFApi> {
-    static let normal = JFApiProvider(plugins: [TestPlugins()])
+/**可以配多个全局的Provider*/
+class JFProviderManager {
+    static let normal = MoyaProvider<JFApi>(plugins: [TestPlugins()])
 }
 
 enum JFApi {
