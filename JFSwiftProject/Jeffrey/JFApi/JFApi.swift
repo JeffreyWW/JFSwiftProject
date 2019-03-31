@@ -32,8 +32,8 @@ enum JFApi {
 
 extension JFApi {
     var apiKey: String {
-//        return "92328b1615ca6660414f482c7bf34050"
-        return ""
+        return "92328b1615ca6660414f482c7bf34050"
+//        return ""
     }
 }
 
