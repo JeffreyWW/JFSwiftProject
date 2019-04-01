@@ -151,7 +151,9 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
+				Base,
 			);
 			mainGroup = 997B7E2642D7CEB4E071B5E6;
 			productRefGroup = 997B7EA8E6E488AAD501CECD /* Products */;
@@ -187,7 +189,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-JFSwiftProject/Pods-JFSwiftProject-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-JFSwiftProject/Pods-JFSwiftProject-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
@@ -208,7 +210,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JFSwiftProject/Pods-JFSwiftProject-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JFSwiftProject/Pods-JFSwiftProject-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BDD4900DA4BBEB4801E7F61A /* [CP] Check Pods Manifest.lock */ = {
