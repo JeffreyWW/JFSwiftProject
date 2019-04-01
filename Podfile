@@ -6,6 +6,8 @@ platform :ios, '9.0'
 target 'JFSwiftProject' do
   pod 'Moya/RxSwift', '~> 12.0'
   pod 'RxCocoa',    '~> 4.0'
+  pod 'SwiftyJSON', '~> 4.2.0'
+  pod 'ObjectMapper', '~> 3.4.1'
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
