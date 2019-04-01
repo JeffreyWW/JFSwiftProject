@@ -105,6 +105,7 @@
 			children = (
 				997B76211445FFE88FCB2814 /* JFApi */,
 				997B72CFC0879FE899E5FB61 /* ViewModels */,
+				997B7F640A1422443107F7DE /* Models */,
 			);
 			path = Jeffrey;
 			sourceTree = "<group>";
@@ -134,6 +135,13 @@
 				997B72AAE4B233028954FE82 /* JFSwiftProject.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		997B7F640A1422443107F7DE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

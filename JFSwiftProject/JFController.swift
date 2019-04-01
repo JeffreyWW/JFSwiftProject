@@ -62,8 +62,6 @@ struct Model: Mappable {
 
 class JFController: UIViewController {
     let vm = JFHomeViewModel.init()
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
         let res = JFApiResponse()
@@ -77,20 +75,5 @@ class JFController: UIViewController {
         }, onError: { error in
             print(error)
         })
-        let e = JFError.system(error: .overTime)
-        switch e {
-        case .api:
-            print("")
-        case let .system(error):
-            switch error {
-            case .overTime:
-                break
-            }
-            print("")
-        }
-//        self.vm.obLogin.subscribe(onNext: { any in }, onCompleted: {
-//
-//        })
-
     }
 }
