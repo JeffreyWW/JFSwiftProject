@@ -20,6 +20,7 @@
 		997B7BAA847080CB326BB1F4 /* JFApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7F2B5D726400119EB5C4 /* JFApi.swift */; };
 		997B7BD1490CD42017DCEBF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7D5FDC82358C57BDFF59 /* AppDelegate.swift */; };
 		997B7DA979E631A7339B8A0B /* JFLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B71C7BD862CCAEB724412 /* JFLoginViewModel.swift */; };
+		997B7DCAE9E3019E09B46DE0 /* Joke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7ECC1B2A895316A3CD5B /* Joke.swift */; };
 		997B7E163098E0520DB71C84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 997B72E4B5A82ADD08EF6057 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		997B7D5FDC82358C57BDFF59 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		997B7D83A75249491DF88B01 /* HYController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HYController.swift; sourceTree = "<group>"; };
 		997B7E9C2FD6B697BA8FE23C /* JFHomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFHomeViewModel.swift; sourceTree = "<group>"; };
+		997B7ECC1B2A895316A3CD5B /* Joke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Joke.swift; sourceTree = "<group>"; };
 		997B7F2B5D726400119EB5C4 /* JFApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFApi.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +142,7 @@
 		997B7F640A1422443107F7DE /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				997B7ECC1B2A895316A3CD5B /* Joke.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				997B7DA979E631A7339B8A0B /* JFLoginViewModel.swift in Sources */,
 				997B733B435BC37023576577 /* JFHomeViewModel.swift in Sources */,
 				997B711F01E76D66481E945B /* TestPlugins.swift in Sources */,
+				997B7DCAE9E3019E09B46DE0 /* Joke.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
