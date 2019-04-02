@@ -39,7 +39,7 @@ class JFController: UIViewController {
             print("")
         }, onError: { error in
             print("")
-
         })
+        self.vm.obHome.subscribe()
     }
 }

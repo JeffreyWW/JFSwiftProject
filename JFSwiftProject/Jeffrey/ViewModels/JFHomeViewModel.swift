@@ -17,4 +17,10 @@ class JFHomeViewModel {
             return Completable.empty()
         }
     }()
+    lazy var obHome = {
+        JFProviderManager.default.request(api: .login(phone: "", password: "")).flatMapCompletable { response in
+            print("")
+            return Completable.empty()
+        }
+    }()
 }

@@ -34,7 +34,7 @@ struct JFApiResponse: Mappable {
     }
 
     static func success() -> JFApiResponse {
-        return self.init(result: [:] as Any)
+        return self.init(result: [:])
     }
 }
 
