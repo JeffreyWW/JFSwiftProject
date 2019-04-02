@@ -14,6 +14,7 @@ target 'JFSwiftProject' do
   pod 'ObjectMapper', '~> 3.4.1'
   # 手动布局
   pod 'SnapKit', '~> 4.2.0'
+  pod 'MBProgressHUD', '~> 1.1.0'
   pod 'Toast-Swift', '~> 4.0.1'
   pod 'PKHUD', '~> 5.0'
   # 扩展集合

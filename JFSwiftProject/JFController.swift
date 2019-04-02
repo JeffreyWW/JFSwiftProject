@@ -15,8 +15,9 @@ import Toast_Swift
 import RxCocoa
 import SnapKit
 import PKHUD
+import MBProgressHUD
 
-class JFController: UIViewController {
+class JFController: JFBaseController {
     let vm = JFHomeViewModel.init()
 
     override func viewDidLoad() {
@@ -27,28 +28,15 @@ class JFController: UIViewController {
         }, onError: { error in
             print("")
         })
-        self.vm.obHome.subscribe()
+        self.vm.obLogin.subscribe()
     }
 
-
     @IBAction func clickToast() {
-        let content = HUDContentType.labeledProgress(title: "", subtitle: "23234")
-        PKHUD.sharedHUD
-        HUD.flash(content, delay: 2)
-//        let view = UIView()
-//        let t: TimeInterval = TimeInterval()
-//        view.backgroundColor = UIColor.black
-//        let btn = UIButton()
-//        let act = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-//        act.style = .whiteLarge
-//        act.startAnimating()
-//        view.addSubview(act)
-//        self.view.showToast(view, duration: Double.infinity, position: .center) { b in
-//        }
-//        view.snp.makeConstraints { maker in
-//            maker.height.width.equalTo(50)
-//            maker.center.equalToSuperview()
-//        }
+        self.hud.rx.loading("加载中")
+                .andThen(self.vm.obLogin)
+                .andThen(self.hud.rx.stopLoading)
+                .andThen(self.hud.rx.showMessage("登录完成"))
+                .subscribe()
     }
 
     @IBAction func clickHidden() {

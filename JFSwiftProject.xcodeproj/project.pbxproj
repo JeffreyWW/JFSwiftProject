@@ -16,7 +16,10 @@
 		997B712B3E8F087C83DD47DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 997B725D9BEE37B55FB7CC09 /* LaunchScreen.storyboard */; };
 		997B733B435BC37023576577 /* JFHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7E9C2FD6B697BA8FE23C /* JFHomeViewModel.swift */; };
 		997B748EAA2B7C171AB09BB2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 997B7863185848AEE6D7F48D /* Assets.xcassets */; };
+		997B75E686FF7D21D61AF8B4 /* MBProgress+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B78EA788EC2A08CBD1E91 /* MBProgress+Rx.swift */; };
+		997B76018AFD19AB5C068C32 /* JFBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B79032F90061D2D6FF906 /* JFBaseController.swift */; };
 		997B767F0D388804A162B2D0 /* HYController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7D83A75249491DF88B01 /* HYController.swift */; };
+		997B7893F48D8C50698111D7 /* MBProgress+JF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7CE6982E333E94C2505F /* MBProgress+JF.swift */; };
 		997B7BAA847080CB326BB1F4 /* JFApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7F2B5D726400119EB5C4 /* JFApi.swift */; };
 		997B7BD1490CD42017DCEBF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7D5FDC82358C57BDFF59 /* AppDelegate.swift */; };
 		997B7DA979E631A7339B8A0B /* JFLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B71C7BD862CCAEB724412 /* JFLoginViewModel.swift */; };
@@ -35,9 +38,12 @@
 		997B71C7BD862CCAEB724412 /* JFLoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFLoginViewModel.swift; sourceTree = "<group>"; };
 		997B72AAE4B233028954FE82 /* JFSwiftProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JFSwiftProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		997B7863185848AEE6D7F48D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		997B78EA788EC2A08CBD1E91 /* MBProgress+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MBProgress+Rx.swift"; sourceTree = "<group>"; };
+		997B79032F90061D2D6FF906 /* JFBaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFBaseController.swift; sourceTree = "<group>"; };
 		997B798C2913485BC0F91CE7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		997B7A7026FC8F0DB24E0C7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		997B7BDAEFA0CE7664038BD2 /* TestPlugins.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestPlugins.swift; sourceTree = "<group>"; };
+		997B7CE6982E333E94C2505F /* MBProgress+JF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MBProgress+JF.swift"; sourceTree = "<group>"; };
 		997B7D3B29C88EEA680CCF88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		997B7D5FDC82358C57BDFF59 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		997B7D83A75249491DF88B01 /* HYController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HYController.swift; sourceTree = "<group>"; };
@@ -84,6 +90,14 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		997B73F2FE637666871FBF4C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				997B7CE6982E333E94C2505F /* MBProgress+JF.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		997B7529419FFA1E1549D3E9 /* JFSwiftProject */ = {
 			isa = PBXGroup;
 			children = (
@@ -108,8 +122,19 @@
 				997B76211445FFE88FCB2814 /* JFApi */,
 				997B72CFC0879FE899E5FB61 /* ViewModels */,
 				997B7F640A1422443107F7DE /* Models */,
+				997B75341CF61609257C6182 /* RxExtensions */,
+				997B7EE62761581625F64C4C /* Base */,
+				997B73F2FE637666871FBF4C /* Extensions */,
 			);
 			path = Jeffrey;
+			sourceTree = "<group>";
+		};
+		997B75341CF61609257C6182 /* RxExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				997B78EA788EC2A08CBD1E91 /* MBProgress+Rx.swift */,
+			);
+			path = RxExtensions;
 			sourceTree = "<group>";
 		};
 		997B76211445FFE88FCB2814 /* JFApi */ = {
@@ -137,6 +162,14 @@
 				997B72AAE4B233028954FE82 /* JFSwiftProject.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		997B7EE62761581625F64C4C /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				997B79032F90061D2D6FF906 /* JFBaseController.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		997B7F640A1422443107F7DE /* Models */ = {
@@ -225,6 +258,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-JFSwiftProject/Pods-JFSwiftProject-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
@@ -242,6 +276,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
@@ -297,6 +332,9 @@
 				997B733B435BC37023576577 /* JFHomeViewModel.swift in Sources */,
 				997B711F01E76D66481E945B /* TestPlugins.swift in Sources */,
 				997B7DCAE9E3019E09B46DE0 /* Joke.swift in Sources */,
+				997B76018AFD19AB5C068C32 /* JFBaseController.swift in Sources */,
+				997B75E686FF7D21D61AF8B4 /* MBProgress+Rx.swift in Sources */,
+				997B7893F48D8C50698111D7 /* MBProgress+JF.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
