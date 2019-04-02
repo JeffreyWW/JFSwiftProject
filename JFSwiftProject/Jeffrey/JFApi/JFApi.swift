@@ -19,7 +19,7 @@ class JFProviderManager {
 
 /**结果,和api返回正常结果统一,这里以聚合的接口为例*/
 struct JFApiResponse: Mappable {
-    var result: AnyObject?
+    var result: Any?
 
     init?(map: Map) {
 
@@ -28,10 +28,18 @@ struct JFApiResponse: Mappable {
     mutating func mapping(map: Map) {
         result <- map["result"]
     }
+
+    init(result: Any?) {
+        self.result = result
+    }
+
+    static func success() -> JFApiResponse {
+        return self.init(result: [:] as Any)
+    }
 }
 
 /**错误,分为api返回的错误和系统错误(网络错误)*/
-enum JFError :Error {
+enum JFError: Error {
     case system(error: JFSystemError)
     case api
 
@@ -44,7 +52,7 @@ enum JFError :Error {
 extension MoyaProvider where Target == JFApi {
     func request(api: JFApi) -> Single<JFApiResponse> {
         return self.rx.request(api).asObservable().mapJSON().asSingle().map { any -> JFApiResponse in
-            return JFApiResponse(JSON: any as! [String: AnyObject])!
+            return JFApiResponse(JSON: any as! [String: Any])!
         }
     }
 }
@@ -53,7 +61,10 @@ extension MoyaProvider where Target == JFApi {
 enum JFApi {
     /**获取随机笑话*/
     case getRandJokes
+//    case login(phone: String, password: String)
+
 }
+
 
 /**moya协议*/
 extension JFApi: TargetType {
@@ -65,6 +76,8 @@ extension JFApi: TargetType {
         switch self {
         case .getRandJokes:
             return "randJoke.php"
+        default:
+            return ""
         }
     }
 
