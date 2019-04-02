@@ -11,12 +11,10 @@ import ObjectMapper
 extension JFApi {
     fileprivate var result: Any? {
         var finalResult: Any? = nil
-
         switch self {
-//        case let .login(phone, password):
-//            finalResult = nil
-        case .getRandJokes:
-            finalResult = ["成功"]
+        case let .login(phone, password):
+            finalResult = nil
+        default:finalResult = nil
         }
         return finalResult
     }

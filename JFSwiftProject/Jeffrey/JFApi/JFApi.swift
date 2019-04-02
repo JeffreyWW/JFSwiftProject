@@ -61,7 +61,7 @@ extension MoyaProvider where Target == JFApi {
 enum JFApi {
     /**获取随机笑话*/
     case getRandJokes
-//    case login(phone: String, password: String)
+    case login(phone: String, password: String)
 
 }
 
