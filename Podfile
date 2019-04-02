@@ -4,10 +4,20 @@ project 'JFSwiftProject.xcodeproj'
 platform :ios, '9.0'
 
 target 'JFSwiftProject' do
+  # 网络请求管理+rx支持
   pod 'Moya/RxSwift', '~> 12.0'
-  pod 'RxCocoa',    '~> 4.0'
+  # rx Cocoa版
+  pod 'RxCocoa', '~> 4.0'
+  # json解析
   pod 'SwiftyJSON', '~> 4.2.0'
+  # 模型转换
   pod 'ObjectMapper', '~> 3.4.1'
+  # 手动布局
+  pod 'SnapKit', '~> 4.2.0'
+  pod 'Toast-Swift', '~> 4.0.1'
+  pod 'PKHUD', '~> 5.0'
+  # 扩展集合
+  pod 'SwifterSwift'
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
