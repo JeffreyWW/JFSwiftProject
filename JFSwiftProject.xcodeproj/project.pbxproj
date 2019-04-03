@@ -261,7 +261,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-JFSwiftProject/Pods-JFSwiftProject-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-JFSwiftProject/Pods-JFSwiftProject-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
@@ -296,7 +296,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JFSwiftProject/Pods-JFSwiftProject-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JFSwiftProject/Pods-JFSwiftProject-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BDD4900DA4BBEB4801E7F61A /* [CP] Check Pods Manifest.lock */ = {
