@@ -38,7 +38,7 @@ class JFController: JFBaseController {
                 .andThen(self.hud.rx.stopLoading)
                 .andThen(self.hud.rx.showMessage("登录完成"))
                 .catchError { error in
-                    let a = error as? JFError
+                    let a = error as? JFApiError
                     print("")
                     return Completable.empty()
                 }

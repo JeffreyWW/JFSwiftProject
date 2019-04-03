@@ -39,46 +39,30 @@ struct JFApiResponse: Mappable {
     }
 }
 
-/**错误,分为api返回的错误和系统错误(网络错误)*/
-enum JFError: Error {
-    case system(error: JFSystemError)
-    case api(error: JFApiError)
 
-    enum JFApiError: Int {
-        case unknown
-        //token失效
-        case tokenLose
-        //超过次数
-        case tooManyTime = 100121
+enum JFApiError: Int, Error {
+    case unknown
+    //token失效
+    case tokenLose
+    //超过次数
+    case tooManyTime = 100121
 
-//        init?(rawValue: Int) {
-//            self.rawValue = rawValue
-//        }
-
-    }
-
-    enum JFSystemError: Int {
-        //连接超时
-        case overTime
-    }
 }
 
 /**扩展请求,直接返回结果或者错误*/
 extension MoyaProvider where Target == JFApi {
     func request(api: JFApi) -> Single<JFApiResponse> {
         return self.rx.request(api).asObservable().mapJSON().asSingle().catchError { error in
-            let moyaError = error as? MoyaError
-
-            return Single.error(JFError.api(error: .unknown))
+            return Single.error(error)
         }.flatMap { any -> Single<JFApiResponse> in
 //            let errorCode = JSON(any)["error_code"].intValue
             let errorCode = 110
             //转化不了apiError,直接设置为默认
             guard errorCode == 0 else {
-                guard let apiError = JFError.JFApiError(rawValue: errorCode) else {
-                    return Single<JFApiResponse>.error(JFError.api(error: .unknown))
+                guard let apiError = JFApiError(rawValue: errorCode) else {
+                    return Single<JFApiResponse>.error(JFApiError.unknown)
                 }
-                return Single<JFApiResponse>.error(JFError.api(error: apiError))
+                return Single<JFApiResponse>.error(apiError)
             }
             return Single.just(JFApiResponse(JSON: any as! [String: Any])!)
         }
