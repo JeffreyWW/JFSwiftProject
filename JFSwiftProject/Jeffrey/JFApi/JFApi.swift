@@ -41,6 +41,7 @@ struct JFApiResponse: Mappable {
 
 
 enum JFApiError: Int, Error {
+    //内部将没有匹配具体数值的错误设置为unknown,尽量去问后台,将错误类型匹配好
     case unknown
     //token失效
     case tokenLose
@@ -55,22 +56,21 @@ extension MoyaProvider where Target == JFApi {
         return self.rx.request(api).asObservable().mapJSON().asSingle().catchError { error in
             return Single.error(error)
         }.flatMap { any -> Single<JFApiResponse> in
-//            let errorCode = JSON(any)["error_code"].intValue
-            let errorCode = 110
-            //转化不了apiError,直接设置为默认
+            //获取错误码
+            let errorCode = JSON(any)["error_code"].intValue
+            //守卫,必须为0,否则是失败
             guard errorCode == 0 else {
+                //失败,通过错误码匹配枚举,匹配不到设置为known类型并问后台具体错误码表示的意义,添加到错误没居中去匹配
                 guard let apiError = JFApiError(rawValue: errorCode) else {
                     return Single<JFApiResponse>.error(JFApiError.unknown)
                 }
+                //匹配到的直接设置
                 return Single<JFApiResponse>.error(apiError)
             }
+            //通过==0的守卫则成功,把数据发送出去
             return Single.just(JFApiResponse(JSON: any as! [String: Any])!)
         }
     }
-}
-
-enum TestError: Int {
-    case T1 = 10012
 }
 
 /**apis*/
