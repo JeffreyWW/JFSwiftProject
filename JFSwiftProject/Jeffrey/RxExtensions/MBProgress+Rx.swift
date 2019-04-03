@@ -7,6 +7,19 @@ import Foundation
 import MBProgressHUD
 import RxSwift
 
+private var hudKey = "hudKey"
+
+extension UIViewController {
+    var hud: MBProgressHUD {
+        guard let hud = objc_getAssociatedObject(self, &hudKey) as? MBProgressHUD else {
+            let hudNew = MBProgressHUD.default(view: self.view)
+            objc_setAssociatedObject(self, &hudKey, hudNew, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            return hudNew
+        }
+        return hud
+    }
+}
+
 extension Reactive where Base: MBProgressHUD {
     public func loading(_ message: String?) -> Completable {
         return Completable.create { observer in

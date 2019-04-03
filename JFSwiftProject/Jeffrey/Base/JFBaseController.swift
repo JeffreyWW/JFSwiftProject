@@ -8,7 +8,5 @@ import UIKit
 import MBProgressHUD
 
 class JFBaseController: UIViewController {
-    lazy var hud: MBProgressHUD = {
-        return MBProgressHUD.default(view: self.view)
-    }()
+
 }

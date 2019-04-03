@@ -17,7 +17,7 @@ import SnapKit
 import PKHUD
 import MBProgressHUD
 
-class JFController: JFBaseController {
+class JFController: UIViewController {
     let vm = JFHomeViewModel.init()
 
     override func viewDidLoad() {
@@ -32,17 +32,17 @@ class JFController: JFBaseController {
     }
 
     @IBAction func clickToast() {
+        self.hud.rx.loading("what").andThen(self.hud.rx.stopLoading).andThen(self.hud.rx.showMessage("fuck")).subscribe()
 
-        self.hud.rx.loading("加载中")
-                .andThen(self.vm.obGetRandJokes)
-                .andThen(self.hud.rx.stopLoading)
-                .andThen(self.hud.rx.showMessage("登录完成"))
-                .catchError { error in
-                    let a = error as? JFApiError
-                    print("")
-                    return Completable.empty()
-                }
-                .subscribe()
+//        self.hud.rx.loading("加载中")
+//                .andThen(self.vm.obGetRandJokes)
+//                .andThen(self.hud.rx.stopLoading)
+//                .andThen(self.hud.rx.showMessage("登录完成"))
+//                .catchError { error in
+//                    let a = error as? JFApiError
+//                    print("")
+//                    return Completable.empty()
+//                }.subscribe()
     }
 
     @IBAction func clickHidden() {
