@@ -19,7 +19,29 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zRp-xu-Ipc">
+                    <rect key="frame" x="164.5" y="328.5" width="46" height="30"/>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="clickToast" destination="-1" eventType="touchUpInside" id="t6u-GM-aQI"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AEL-CW-37L">
+                    <rect key="frame" x="164.5" y="395.5" width="46" height="30"/>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="clickHidden" destination="-1" eventType="touchUpInside" id="ax3-YP-GP7"/>
+                    </connections>
+                </button>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="zRp-xu-Ipc" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="5L4-oc-4lb"/>
+                <constraint firstItem="AEL-CW-37L" firstAttribute="top" secondItem="zRp-xu-Ipc" secondAttribute="bottom" constant="37" id="MFk-dI-fPH"/>
+                <constraint firstItem="zRp-xu-Ipc" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="V76-pm-zrZ"/>
+                <constraint firstItem="AEL-CW-37L" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="r7U-AM-LcK"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
         </view>
     </objects>

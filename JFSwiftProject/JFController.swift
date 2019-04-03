@@ -11,86 +11,47 @@ import Moya
 import RxSwift
 import SwiftyJSON
 import ObjectMapper
-
-enum ErrorType: Int {
-    case first = 10001
-}
-
-
-struct Joke: Mappable {
-    var content: String?
-    var hashId: String?
-    var unixtime: Int?
-
-    init?(map: Map) {
-
-    }
-
-    mutating func mapping(map: Map) {
-        content <- map["content"]
-        hashId <- map["hashId"]
-        unixtime <- map["unixtime"]
-    }
-}
-
-struct Model: Mappable {
-    var errorCode: ErrorType?
-    var reason: String?
-    var result: AnyObject?
-//    var result: Array<Dictionary<String, AnyObject>>?
-    var resultCode: Int?
-
-    init?(map: Map) {
-
-    }
-
-    mutating func mapping(map: Map) {
-        let intTransform = TransformOf<Int, String>(fromJSON: { s in
-            if let intValue = Int(s!) {
-                return intValue
-            }
-            return nil
-        }, toJSON: { i in return nil })
-        reason <- map["reason"]
-        errorCode <- map["error_code"]
-        result <- map["result"]
-        resultCode <- (map["resultcode"], intTransform)
-
-    }
-}
+import Toast_Swift
+import RxCocoa
+import SnapKit
+import PKHUD
+import MBProgressHUD
 
 
 class JFController: UIViewController {
     let vm = JFHomeViewModel.init()
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        let res = JFApiResponse()
-        self.navigationItem.title = "Jeffrey"
-        let provider = MoyaProvider<JFApi>()
-        let ob = provider.rx.request(.home)
-        self.vm.obHome.subscribe(onNext: { value in
-            let model = Model(JSONString: value)
-            let modelArray = Mapper<Joke>().mapArray(JSONObject: model?.result)
-            print("")
-        }, onError: { error in
-            print(error)
-        })
-        let e = JFError.system(error: .overTime)
-        switch e {
-        case .api:
-            print("")
-        case let .system(error):
-            switch error {
-            case .overTime:
-                break
-            }
-            print("")
-        }
-//        self.vm.obLogin.subscribe(onNext: { any in }, onCompleted: {
-//
+//        self.navigationItem.title = "Jeffrey"
+//        self.vm.obGetRandJokes.andThen(.empty()).subscribe(onCompleted: {
+//            print("")
+//        }, onError: { error in
+//            print("")
 //        })
+//        self.vm.obLogin.subscribe()
+    }
 
+    @IBAction func clickToast() {
+        let bt = UIButton()
+        let a = UIViewController()
+
+//        self.hud.rx.loading("what")
+//                .andThen(self.hud.rx.stopLoading)
+//                .andThen(self.hud.rx.showMessage("fuck"))
+
+        self.hud.rx.loading("加载中")
+                .andThen(self.vm.obGetRandJokes)
+                .andThen(self.hud.rx.stopLoading)
+                .andThen(self.hud.rx.showMessage("登录完成")).subscribe()
+//                .catchError { error in
+//                    let a = error as? JFApiError
+//                    print("")
+//                    return Completable.empty()
+//                }.subscribe()
+    }
+
+    @IBAction func clickHidden() {
+        self.view.hideAllToasts()
     }
 }

@@ -6,13 +6,21 @@
 import Foundation
 import Moya
 import RxSwift
+import ObjectMapper
+import SwiftyJSON
 
 class JFHomeViewModel {
-    let data = ""
-    lazy var obHome = {
-        JFProviderManager.normal.rx.request(.home).asObservable().mapString()
+    var jokes: [Joke]? = []
+    lazy var obGetRandJokes = {
+        JFProviderManager.default.request(api: .getRandJokes).flatMapCompletable { response in
+            self.jokes = Mapper<Joke>().mapArray(JSONObject: response.result)
+            return Completable.empty()
+        }
     }()
     lazy var obLogin = {
-        JFProviderManager.normal.rx.request(.login(phone: "", password: "")).asObservable().mapString()
+        JFProviderManager.default.request(api: .login(phone: "", password: "")).flatMapCompletable { response in
+            print("")
+            return Completable.empty()
+        }
     }()
 }
