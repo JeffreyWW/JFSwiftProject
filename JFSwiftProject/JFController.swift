@@ -22,20 +22,26 @@ class JFController: JFBaseController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "Jeffrey"
-        self.vm.obGetRandJokes.andThen(.empty()).subscribe(onCompleted: {
-            print("")
-        }, onError: { error in
-            print("")
-        })
-        self.vm.obLogin.subscribe()
+//        self.navigationItem.title = "Jeffrey"
+//        self.vm.obGetRandJokes.andThen(.empty()).subscribe(onCompleted: {
+//            print("")
+//        }, onError: { error in
+//            print("")
+//        })
+//        self.vm.obLogin.subscribe()
     }
 
     @IBAction func clickToast() {
+
         self.hud.rx.loading("加载中")
-                .andThen(self.vm.obLogin)
+                .andThen(self.vm.obGetRandJokes)
                 .andThen(self.hud.rx.stopLoading)
                 .andThen(self.hud.rx.showMessage("登录完成"))
+                .catchError { error in
+                    let a = error as? JFError
+                    print("")
+                    return Completable.empty()
+                }
                 .subscribe()
     }
 
