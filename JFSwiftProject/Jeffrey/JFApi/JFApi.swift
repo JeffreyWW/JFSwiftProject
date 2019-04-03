@@ -57,7 +57,8 @@ extension MoyaProvider where Target == JFApi {
             return Single.error(error)
         }.flatMap { any -> Single<JFApiResponse> in
             //获取错误码
-            let errorCode = JSON(any)["error_code"].intValue
+//            let errorCode = JSON(any)["error_code"].intValue
+            let errorCode = 123
             //守卫,必须为0,否则是失败
             guard errorCode == 0 else {
                 //失败,通过错误码匹配枚举,匹配不到设置为known类型并问后台具体错误码表示的意义,添加到错误没居中去匹配

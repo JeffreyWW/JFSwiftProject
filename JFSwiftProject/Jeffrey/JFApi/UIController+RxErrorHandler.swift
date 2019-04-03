@@ -7,20 +7,50 @@ import Foundation
 import UIKit
 import RxSwift
 import RxCocoa
+import Moya
 
-extension Reactive where Base: UIButton {
-    public func test() {
-
+/**解决AC无法读取rx类型问题*/
+extension UIViewController {
+    public var rx: Reactive<UIViewController> {
+        get {
+            return Reactive(self)
+        }
     }
-
 }
 
-extension Reactive where Base: UIViewController {
-    public func test() {
-print("123123123")
-    }
 
-    public func errorHandler(_ error: Error) -> Completable {
-        return Completable.empty()
+extension Reactive where Base: UIViewController {
+    public func catchError(_ error: Error) -> Completable {
+        var finalCatchError: Completable = Completable.empty()
+        if let apiError = error as? JFApiError {
+            finalCatchError = self.base.errorHandler(apiError)
+        }
+
+        if let moyaError = error as? MoyaError {
+            finalCatchError = self.base.errorHandler(moyaError)
+        }
+
+        if let localError = error as? JFLocalError {
+            finalCatchError = self.base.errorHandler(localError)
+        }
+        return self.base.hud.rx.stopLoading.andThen(finalCatchError)
+    }
+}
+
+private extension UIViewController {
+    func errorHandler(_ apiError: JFApiError) -> Completable {
+        return Completable.empty().andThen(self.hud.rx.showMessage("api错误"))
+    }
+}
+
+private extension UIViewController {
+    func errorHandler(_ moyaError: MoyaError) -> Completable {
+        return Completable.empty().andThen(self.hud.rx.showMessage("网络错误"))
+    }
+}
+
+private extension UIViewController {
+    func errorHandler(_ localError: JFLocalError) -> Completable {
+        return Completable.empty().andThen(self.hud.rx.showMessage("本地错误"))
     }
 }

@@ -22,6 +22,7 @@
 		997B7893F48D8C50698111D7 /* MBProgress+JF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7CE6982E333E94C2505F /* MBProgress+JF.swift */; };
 		997B7BAA847080CB326BB1F4 /* JFApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7F2B5D726400119EB5C4 /* JFApi.swift */; };
 		997B7BD1490CD42017DCEBF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7D5FDC82358C57BDFF59 /* AppDelegate.swift */; };
+		997B7C04C89F18C6BC58675B /* JFLocalError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B735A90F6EBC38C2D02E8 /* JFLocalError.swift */; };
 		997B7D2ADB7496FF2A5D46B8 /* UIController+RxErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7F06BC7EAC7A38F8CD34 /* UIController+RxErrorHandler.swift */; };
 		997B7DA979E631A7339B8A0B /* JFLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B71C7BD862CCAEB724412 /* JFLoginViewModel.swift */; };
 		997B7DCAE9E3019E09B46DE0 /* Joke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7ECC1B2A895316A3CD5B /* Joke.swift */; };
@@ -38,6 +39,7 @@
 		997B7084519A9B5CB7484570 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		997B71C7BD862CCAEB724412 /* JFLoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFLoginViewModel.swift; sourceTree = "<group>"; };
 		997B72AAE4B233028954FE82 /* JFSwiftProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JFSwiftProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		997B735A90F6EBC38C2D02E8 /* JFLocalError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFLocalError.swift; sourceTree = "<group>"; };
 		997B7863185848AEE6D7F48D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		997B78EA788EC2A08CBD1E91 /* MBProgress+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MBProgress+Rx.swift"; sourceTree = "<group>"; };
 		997B79032F90061D2D6FF906 /* JFBaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFBaseController.swift; sourceTree = "<group>"; };
@@ -100,6 +102,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		997B74BAAF732AD8AA5DD9E0 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				997B735A90F6EBC38C2D02E8 /* JFLocalError.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		997B7529419FFA1E1549D3E9 /* JFSwiftProject */ = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +137,7 @@
 				997B75341CF61609257C6182 /* RxExtensions */,
 				997B7EE62761581625F64C4C /* Base */,
 				997B73F2FE637666871FBF4C /* Extensions */,
+				997B74BAAF732AD8AA5DD9E0 /* Enums */,
 			);
 			path = Jeffrey;
 			sourceTree = "<group>";
@@ -341,6 +352,7 @@
 				997B75E686FF7D21D61AF8B4 /* MBProgress+Rx.swift in Sources */,
 				997B7893F48D8C50698111D7 /* MBProgress+JF.swift in Sources */,
 				997B7D2ADB7496FF2A5D46B8 /* UIController+RxErrorHandler.swift in Sources */,
+				997B7C04C89F18C6BC58675B /* JFLocalError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

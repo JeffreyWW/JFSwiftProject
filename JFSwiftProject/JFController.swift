@@ -19,10 +19,12 @@ import MBProgressHUD
 
 
 class JFController: UIViewController {
+
     let vm = JFHomeViewModel.init()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
 //        self.navigationItem.title = "Jeffrey"
 //        self.vm.obGetRandJokes.andThen(.empty()).subscribe(onCompleted: {
 //            print("")
@@ -35,23 +37,21 @@ class JFController: UIViewController {
     @IBAction func clickToast() {
         let bt = UIButton()
         let a = UIViewController()
+        let c: Variable<String> = Variable<String>("")
+        let aaa = c.value
+        Completable.error(JFLocalError.default(tag: 1)).catchError(self.rx.catchError).subscribe()
 
-//        self.hud.rx.loading("what")
+
+//        self.hud.rx.loading("加载中")
+//                .andThen(self.vm.obGetRandJokes)
 //                .andThen(self.hud.rx.stopLoading)
-//                .andThen(self.hud.rx.showMessage("fuck"))
+//                .andThen(self.hud.rx.showMessage("登录完成"))
+//                .catchError(self.rx.catchError).subscribe()
 
-        self.hud.rx.loading("加载中")
-                .andThen(self.vm.obGetRandJokes)
-                .andThen(self.hud.rx.stopLoading)
-                .andThen(self.hud.rx.showMessage("登录完成")).subscribe()
-//                .catchError { error in
-//                    let a = error as? JFApiError
-//                    print("")
-//                    return Completable.empty()
-//                }.subscribe()
     }
 
     @IBAction func clickHidden() {
         self.view.hideAllToasts()
+
     }
 }
