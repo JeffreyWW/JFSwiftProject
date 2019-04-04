@@ -59,6 +59,18 @@ private extension UIViewController {
 
 private extension UIViewController {
     func errorHandler(_ localError: JFLocalError) -> Completable {
+        switch (localError) {
+        case .default:
+            return Completable.empty()
+        case .alert:
+            return Completable.empty()
+        case let .toast(message):
+            return self.hud.rx.showMessage(message)
+                //需要修改为确认选择的形式
+        case let .confirm(message):
+            return self.hud.rx.showMessage(message)
+        }
+
         return Completable.empty().andThen(self.hud.rx.showMessage("本地错误"))
     }
 }
