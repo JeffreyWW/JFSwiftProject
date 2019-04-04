@@ -39,7 +39,15 @@ extension Reactive where Base: UIViewController {
 
 private extension UIViewController {
     func errorHandler(_ apiError: JFApiError) -> Completable {
-        return Completable.empty().andThen(self.hud.rx.showMessage("api错误"))
+        switch (apiError) {
+        case .unknown:
+            return self.hud.rx.showMessage("后台系统异常,请稍后重试")
+        case .tokenLose:
+            //需要登出效果
+            return self.hud.rx.showMessage("登录失效,请重新登录")
+        case .tooManyTime:
+            return self.hud.rx.showMessage("请求已超过次数")
+        }
     }
 }
 

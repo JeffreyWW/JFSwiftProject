@@ -40,6 +40,7 @@ struct JFApiResponse: Mappable {
 }
 
 
+//内部设置后,api的错误必然会匹配,要么是unknown,要么是其他类型
 enum JFApiError: Int, Error {
     //内部将没有匹配具体数值的错误设置为unknown,尽量去问后台,将错误类型匹配好
     case unknown
@@ -47,7 +48,6 @@ enum JFApiError: Int, Error {
     case tokenLose
     //超过次数
     case tooManyTime = 100121
-
 }
 
 /**扩展请求,直接返回结果或者错误*/
@@ -57,8 +57,7 @@ extension MoyaProvider where Target == JFApi {
             return Single.error(error)
         }.flatMap { any -> Single<JFApiResponse> in
             //获取错误码
-//            let errorCode = JSON(any)["error_code"].intValue
-            let errorCode = 123
+            let errorCode = JSON(any)["error_code"].intValue
             //守卫,必须为0,否则是失败
             guard errorCode == 0 else {
                 //失败,通过错误码匹配枚举,匹配不到设置为known类型并问后台具体错误码表示的意义,添加到错误没居中去匹配

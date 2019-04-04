@@ -38,15 +38,15 @@ class JFController: UIViewController {
         let bt = UIButton()
         let a = UIViewController()
         let c: Variable<String> = Variable<String>("")
-        let aaa = c.value
-        Completable.error(JFLocalError.default(tag: 1)).catchError(self.rx.catchError).subscribe()
-
-
-//        self.hud.rx.loading("加载中")
-//                .andThen(self.vm.obGetRandJokes)
-//                .andThen(self.hud.rx.stopLoading)
-//                .andThen(self.hud.rx.showMessage("登录完成"))
-//                .catchError(self.rx.catchError).subscribe()
+        self.hud.rx.loading("加载中")
+                .andThen(self.vm.obGetRandJokes)
+                .andThen(self.hud.rx.stopLoading)
+                .andThen(Completable.create { observer in
+                    let a = self.vm.jokes
+                    print("")
+                    return Disposables.create()
+                })
+                .catchError(self.rx.catchError).subscribe()
 
     }
 
