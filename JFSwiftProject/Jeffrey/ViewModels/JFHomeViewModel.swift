@@ -8,8 +8,23 @@ import Moya
 import RxSwift
 import ObjectMapper
 import SwiftyJSON
+import RxCocoa
 
-class JFHomeViewModel {
+class JFHomeViewModel: ReactiveCompatible {
+
+    init() {
+//        self.phone.map { s -> Bool in
+//            return true
+//        }.bind(to: self.check)
+    }
+
+    var checkPhone: BehaviorRelay<Bool?> = BehaviorRelay<Bool?>(value: true)
+    var checkPwd: BehaviorRelay<Bool?> = BehaviorRelay<Bool?>(value: true)
+    var checkPwdAgain: BehaviorRelay<Bool?> = BehaviorRelay<Bool?>(value: true)
+
+    var phone: BehaviorRelay<String?> = BehaviorRelay<String?>(value: "")
+    lazy var check: BehaviorRelay<Bool> = BehaviorRelay<Bool>(value: false)
+
     var jokes: [Joke]? = []
     lazy var obGetRandJokes = {
         JFProviderManager.default.request(api: .getRandJokes).flatMapCompletable { response in

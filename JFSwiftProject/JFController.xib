@@ -12,6 +12,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JFController" customModule="JFSwiftProject" customModuleProvider="target">
             <connections>
+                <outlet property="btnTest" destination="zRp-xu-Ipc" id="cfb-9B-dIo"/>
+                <outlet property="lbTest" destination="kxl-Xx-Vfu" id="wpO-mt-Drp"/>
+                <outlet property="txtPassword" destination="dkq-fO-6I0" id="qgo-eO-Tkd"/>
+                <outlet property="txtPhone" destination="X2u-Pu-ruJ" id="KsK-fQ-vRD"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Mmw-Rp-SLx"/>
             </connections>
         </placeholder>
@@ -34,13 +38,39 @@
                         <action selector="clickHidden" destination="-1" eventType="touchUpInside" id="ax3-YP-GP7"/>
                     </connections>
                 </button>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X2u-Pu-ruJ">
+                    <rect key="frame" x="10" y="106" width="355" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kxl-Xx-Vfu">
+                    <rect key="frame" x="10" y="147" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dkq-fO-6I0">
+                    <rect key="frame" x="4" y="208" width="355" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="zRp-xu-Ipc" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="5L4-oc-4lb"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="dkq-fO-6I0" secondAttribute="trailing" constant="16" id="KZB-2V-FlD"/>
                 <constraint firstItem="AEL-CW-37L" firstAttribute="top" secondItem="zRp-xu-Ipc" secondAttribute="bottom" constant="37" id="MFk-dI-fPH"/>
                 <constraint firstItem="zRp-xu-Ipc" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="V76-pm-zrZ"/>
+                <constraint firstItem="X2u-Pu-ruJ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="86" id="cH8-eh-wel"/>
+                <constraint firstItem="dkq-fO-6I0" firstAttribute="top" secondItem="kxl-Xx-Vfu" secondAttribute="bottom" constant="40" id="e2X-BL-7V4"/>
+                <constraint firstItem="kxl-Xx-Vfu" firstAttribute="leading" secondItem="X2u-Pu-ruJ" secondAttribute="leading" id="iTM-x0-WQV"/>
+                <constraint firstItem="X2u-Pu-ruJ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="oJG-kZ-g0t"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="X2u-Pu-ruJ" secondAttribute="trailing" constant="10" id="owx-3Q-r8f"/>
                 <constraint firstItem="AEL-CW-37L" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="r7U-AM-LcK"/>
+                <constraint firstItem="dkq-fO-6I0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="4" id="rtD-a3-uM8"/>
+                <constraint firstItem="kxl-Xx-Vfu" firstAttribute="top" secondItem="X2u-Pu-ruJ" secondAttribute="bottom" constant="11" id="vTI-mb-leI"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
         </view>
