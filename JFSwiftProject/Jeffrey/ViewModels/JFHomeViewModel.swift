@@ -37,23 +37,6 @@ class JFHomeViewModel: ReactiveCompatible {
         }
     }
 
-
-//    lazy var output: (btnEnable: Driver<Bool>, done: Driver<Bool>) = {
-//        return (btnEnable: self.btnEnable, done: Driver.just(false))
-//    }()
-
-//    private lazy var btnEnable = {
-//        return Driver.just(true)
-//    }()
-
-
-    var checkPhone: BehaviorRelay<Bool?> = BehaviorRelay<Bool?>(value: true)
-    var checkPwd: BehaviorRelay<Bool?> = BehaviorRelay<Bool?>(value: true)
-    var checkPwdAgain: BehaviorRelay<Bool?> = BehaviorRelay<Bool?>(value: true)
-
-    var phone: BehaviorRelay<String?> = BehaviorRelay<String?>(value: "")
-    lazy var check: BehaviorRelay<Bool> = BehaviorRelay<Bool>(value: false)
-
     var jokes: [Joke]? = []
     lazy var obGetRandJokes = {
         JFProviderManager.default.request(api: .getRandJokes).flatMapCompletable { response in
