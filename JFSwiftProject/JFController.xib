@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JFController" customModule="JFSwiftProject" customModuleProvider="target">
             <connections>
-                <outlet property="btnTest" destination="zRp-xu-Ipc" id="cfb-9B-dIo"/>
+                <outlet property="btnNext" destination="zRp-xu-Ipc" id="cfb-9B-dIo"/>
                 <outlet property="lbTest" destination="kxl-Xx-Vfu" id="wpO-mt-Drp"/>
                 <outlet property="txtPassword" destination="dkq-fO-6I0" id="qgo-eO-Tkd"/>
                 <outlet property="txtPhone" destination="X2u-Pu-ruJ" id="KsK-fQ-vRD"/>
@@ -26,7 +26,10 @@
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zRp-xu-Ipc">
                     <rect key="frame" x="164.5" y="328.5" width="46" height="30"/>
-                    <state key="normal" title="Button"/>
+                    <state key="normal" title="下一步"/>
+                    <state key="disabled">
+                        <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
                     <connections>
                         <action selector="clickToast" destination="-1" eventType="touchUpInside" id="t6u-GM-aQI"/>
                     </connections>
