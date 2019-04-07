@@ -24,7 +24,8 @@ class JFController: UIViewController {
     lazy var vm: JFHomeViewModel = {
         let phone = self.txtPhone.rx.text.orEmpty.asDriver()
         let password = self.txtPassword.rx.text.orEmpty.asDriver()
-        return JFHomeViewModel(input: (phone: phone, password: password))
+        let nextTap = self.btnNext.rx.tap.asDriver()
+        return JFHomeViewModel(input: (phone: phone, password: password, nextTap: nextTap))
     }()
     @IBOutlet weak var txtPhone: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
@@ -34,16 +35,21 @@ class JFController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.binding()
-
+        self.asObserver()
 
     }
 
+
     private func binding() {
-        self.vm.btnEnable.drive(self.btnNext.rx.isEnabled)
+
+    }
+
+    private func asObserver() {
+        self.vm.output.btnEnable.drive(self.btnNext.rx.isEnabled)
+        
     }
 
     @IBAction func clickToast() {
-
 
         //提示确认还是取消
 //        let a = Observable.create { (observer: AnyObserver<Element>) in  }.asDriver(onErrorJustReturn: false)
