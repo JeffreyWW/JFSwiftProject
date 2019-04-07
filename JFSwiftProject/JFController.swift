@@ -25,12 +25,30 @@ class JFController: UIViewController {
         let phone = self.txtPhone.rx.text.orEmpty.asDriver()
         let password = self.txtPassword.rx.text.orEmpty.asDriver()
         let nextTap = self.btnNext.rx.tap.asDriver()
-        return JFHomeViewModel(input: (phone: phone, password: password, nextTap: nextTap))
+        let confirm = self.confirm
+        return JFHomeViewModel(input: (phone: phone, password: password, nextTap: nextTap, confirm: confirm))
     }()
     @IBOutlet weak var txtPhone: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var lbTest: UILabel!
     @IBOutlet weak var btnNext: UIButton!
+    var confirm: Driver<Bool> {
+        return Observable<Bool>.create { observer in
+            let controller = UIAlertController(title: "提示", message: "消息", preferredStyle: .alert)
+            let action = UIAlertAction(title: "取消", style: .cancel) { action in
+                observer.onNext(false)
+                observer.onCompleted()
+            }
+            let confirm = UIAlertAction(title: "确定", style: .default) { action in
+                observer.onNext(true)
+                observer.onCompleted()
+            }
+            controller.addAction(action)
+            controller.addAction(confirm)
+            self.present(controller, animated: true)
+            return Disposables.create()
+        }.asDriver(onErrorJustReturn: false)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,8 +63,14 @@ class JFController: UIViewController {
     }
 
     private func asObserver() {
+        //驱动按钮可用
         self.vm.output.btnEnable.drive(self.btnNext.rx.isEnabled)
-        
+        self.vm.output.done.drive(onNext: { i in
+            print("111")
+        })
+
+        //传入一个提示符
+
     }
 
     @IBAction func clickToast() {

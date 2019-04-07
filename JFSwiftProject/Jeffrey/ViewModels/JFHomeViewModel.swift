@@ -13,14 +13,16 @@ import RxCocoa
 class JFHomeViewModel: ReactiveCompatible {
     //输入必须确定,输出其实也必须会确定,但那样的话,必须在初始化就写出如何输出,内部的每个输出无法用单独的变量,因为
     //索性用lazy
-    let input: (phone: Driver<String>, password: Driver<String>, nextTap: Driver<Void>)
 
-    init(input: (phone: Driver<String>, password: Driver<String>, nextTap: Driver<Void>)) {
+
+    let input: (phone: Driver<String>, password: Driver<String>, nextTap: Driver<Void>, confirm: Driver<Bool>)
+
+    init(input: (phone: Driver<String>, password: Driver<String>, nextTap: Driver<Void>, confirm: Driver<Bool>)) {
         self.input = input
     }
 
-    lazy var output: (btnEnable: Driver<Bool>, done: Driver<Bool>) = {
-        return (btnEnable: self.btnEnable, done: Driver.just(true))
+    lazy var output: (btnEnable: Driver<Bool>, done: Driver<Void?>) = {
+        return (btnEnable: self.btnEnable, done: self.done)
     }()
 
 
@@ -37,6 +39,14 @@ class JFHomeViewModel: ReactiveCompatible {
         }
     }
 
+    private var done: Driver<Void?> {
+        return self.input.nextTap.flatMap { () -> Driver<Bool> in
+            return self.input.confirm
+        }.flatMap { b in
+            return b ? Driver.just(nil) : Driver.never()
+//            return Driver.just(nil)
+        }
+    }
     var jokes: [Joke]? = []
     lazy var obGetRandJokes = {
         JFProviderManager.default.request(api: .getRandJokes).flatMapCompletable { response in
