@@ -6,7 +6,7 @@
 import Foundation
 import MBProgressHUD
 import RxSwift
-
+import RxCocoa
 private var hudKey = "hudKey"
 
 extension UIViewController {

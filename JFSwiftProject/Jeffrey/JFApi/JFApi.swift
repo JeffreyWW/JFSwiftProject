@@ -9,6 +9,7 @@ import Alamofire
 import RxSwift
 import ObjectMapper
 import SwiftyJSON
+import RxCocoa
 
 let kJuHeBaseUrl = "http://v.juhe.cn/joke"
 private let juHeApiKey = "92328b1615ca6660414f482c7bf34050"
@@ -16,6 +17,11 @@ private let juHeApiKey = "92328b1615ca6660414f482c7bf34050"
 /**可以配多个全局的Provider*/
 class JFProviderManager {
     static let `default` = MoyaProvider<JFApi>(plugins: [TestPlugins()])
+}
+
+enum JFResult {
+    case success(JFApiResponse)
+    case failure(Error)
 }
 
 /**结果,和api返回正常结果统一,这里以聚合的接口为例*/
@@ -52,26 +58,64 @@ enum JFApiError: Int, Error {
 
 /**扩展请求,直接返回结果或者错误*/
 extension MoyaProvider where Target == JFApi {
-    func request(api: JFApi) -> Single<JFApiResponse> {
-        return self.rx.request(api).asObservable().mapJSON().asSingle().catchError { error in
-            return Single.error(error)
-        }.flatMap { any -> Single<JFApiResponse> in
-            //获取错误码
-            let errorCode = JSON(any)["error_code"].intValue
+    func request(api: JFApi) -> Driver<JFResult> {
+        return self.rx.request(api).asObservable().mapJSON().flatMap { any -> Observable<JFResult> in
+//            let errorCode = JSON(any)["error_code"].intValue
+            let errorCode = 12123
             //守卫,必须为0,否则是失败
             guard errorCode == 0 else {
                 //失败,通过错误码匹配枚举,匹配不到设置为known类型并问后台具体错误码表示的意义,添加到错误没居中去匹配
                 guard let apiError = JFApiError(rawValue: errorCode) else {
-                    return Single<JFApiResponse>.error(JFApiError.unknown)
+                    return Observable<JFResult>.error(JFApiError.unknown)
                 }
                 //匹配到的直接设置
-                return Single<JFApiResponse>.error(apiError)
+                return Observable<JFResult>.just(.failure(apiError))
             }
             //通过==0的守卫则成功,把数据发送出去
-            return Single.just(JFApiResponse(JSON: any as! [String: Any])!)
+            return Observable<JFResult>.just(.success(JFApiResponse(JSON: any as! [String: Any])!))
+        }.asDriver { error in
+            Driver.just(JFResult.failure(error))
         }
     }
 }
+
+//扩展的时候,如果是typealias,泛型需要之前的
+extension Driver where Element == JFResult {
+    func asSuccess() -> Driver<JFApiResponse> {
+        return self.flatMap { (result: JFResult) -> Driver<JFApiResponse> in
+            switch result {
+            case let .success(response):
+                return Driver.just(response)
+            case .failure:
+                return Driver.never()
+            }
+        }
+    }
+
+    func asFailure() -> Driver<Error> {
+        return self.flatMap { (result: JFResult) -> Driver<Error> in
+            switch result {
+            case .success:
+                return Driver.never()
+            case let .failure(error):
+                return Driver.just(error)
+            }
+        }
+    }
+
+    func test() {
+        print("11")
+    }
+}
+
+//extension Driver where SharedSequenceConvertibleType == Any {
+//
+//    func test() {
+//
+//
+//    }
+//
+//}
 
 /**apis*/
 enum JFApi {

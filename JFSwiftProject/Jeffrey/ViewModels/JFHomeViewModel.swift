@@ -38,26 +38,22 @@ class JFHomeViewModel: ReactiveCompatible {
             return phone && password
         }
     }
-
     private var done: Driver<Void?> {
         return self.input.nextTap.flatMap { () -> Driver<Bool> in
             return self.input.confirm
         }.flatMap { b in
+
             return b ? Driver.just(nil) : Driver.never()
-//            return Driver.just(nil)
         }
     }
     var jokes: [Joke]? = []
-    lazy var obGetRandJokes = {
-        JFProviderManager.default.request(api: .getRandJokes).flatMapCompletable { response in
-            self.jokes = Mapper<Joke>().mapArray(JSONObject: response.result)
-            return Completable.empty()
-        }
-    }()
+//    lazy var obGetRandJokes = {
+//        JFProviderManager.default.request(api: .getRandJokes).flatMapCompletable { response in
+//            self.jokes = Mapper<Joke>().mapArray(JSONObject: response.result)
+//            return Completable.empty()
+//        }
+//    }()
     lazy var obLogin = {
-        JFProviderManager.default.request(api: .login(phone: "", password: "")).flatMapCompletable { response in
-            print("")
-            return Completable.empty()
-        }
+        JFProviderManager.default.request(api: .login(phone: "", password: ""))
     }()
 }

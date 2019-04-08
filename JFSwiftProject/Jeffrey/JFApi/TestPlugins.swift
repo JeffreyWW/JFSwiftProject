@@ -20,7 +20,7 @@ extension JFApi {
         var finalResult: Any? = nil
         switch self {
         case let .login(phone, password):
-            finalResult = ["": ""]
+            finalResult = ["message": "登录成功"]
         default:finalResult = nil
         }
         return finalResult

@@ -19,19 +19,20 @@ import MBProgressHUD
 
 
 class JFController: UIViewController {
-
+    @IBOutlet weak var txtPhone: UITextField!
+    @IBOutlet weak var txtPassword: UITextField!
+    @IBOutlet weak var lbTest: UILabel!
+    @IBOutlet weak var btnNext: UIButton!
     let disposeBag = DisposeBag()
     lazy var vm: JFHomeViewModel = {
         let phone = self.txtPhone.rx.text.orEmpty.asDriver()
         let password = self.txtPassword.rx.text.orEmpty.asDriver()
         let nextTap = self.btnNext.rx.tap.asDriver()
-        let confirm = self.confirm
+        //中间增加一个确认继续的驱动
+        let confirm: Driver<Bool> = self.confirm
         return JFHomeViewModel(input: (phone: phone, password: password, nextTap: nextTap, confirm: confirm))
     }()
-    @IBOutlet weak var txtPhone: UITextField!
-    @IBOutlet weak var txtPassword: UITextField!
-    @IBOutlet weak var lbTest: UILabel!
-    @IBOutlet weak var btnNext: UIButton!
+
     var confirm: Driver<Bool> {
         return Observable<Bool>.create { observer in
             let controller = UIAlertController(title: "提示", message: "消息", preferredStyle: .alert)
@@ -52,29 +53,46 @@ class JFController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.binding()
         self.asObserver()
-
-    }
-
-
-    private func binding() {
-
     }
 
     private func asObserver() {
         //驱动按钮可用
+        //driver不会发送错误,所以不会发生错误的,比如
+        self.hud.rx.stopLoading
         self.vm.output.btnEnable.drive(self.btnNext.rx.isEnabled)
         self.vm.output.done.drive(onNext: { i in
             print("111")
         })
+        self.vm.obLogin.asSuccess().drive(onNext: { i in
+            print(i)
+        })
+//        self.vm.obLogin.asFailure().
 
-        //传入一个提示符
+        //catch返回结果必然是对应的,所以,结果catch来说应该也是,但catch不需要发送值,只需要完成,咋办,所以catch应该是ob类型,然外面自由转换即可
+//        self.vm.obLogin.asDriver(onErrorRecover: <#T##@escaping (Error) -> Driver<JFApiResponse>##@escaping (Swift.Error) -> RxCocoa.Driver<JFSwiftProject.JFApiResponse>#>)
 
+//        self.vm.obLogin.catchError(<#T##handler: @escaping (Error) throws -> PrimitiveSequence<SingleTrait, JFApiResponse>##@escaping (Swift.Error) throws -> RxSwift.PrimitiveSequence<RxSwift.SingleTrait, JFSwiftProject.JFApiResponse>#>)
+//        self.vm.obLogin.catchError(<#T##handler: @escaping (Error) throws -> PrimitiveSequence<SingleTrait, JFApiResponse>##@escaping (Swift.Error) throws -> RxSwift.PrimitiveSequence<RxSwift.SingleTrait, JFSwiftProject.JFApiResponse>#>)
+//maybe 转不了com,因为next和com是互斥的,s能转,理论上s发送完值后会com
+
+        //转化为drive的时候,先catch,错误则设置为never,不会返回
+//        self.vm.obLogin.asDriver { error in
+//            self.rx.catchError(error).fla
+//        }
+//        Completable.empty().asDriver(onErrorDriveWith: Driver.empty()).drive(onCompleted: {
+//            print("1")
+//        })
+//        self.vm.obLogin.flatMapCompletable { response in  }.catchError(self.rx.catchError)
+        //错误转化为驱动,控制器直接驱动rx设置好的处理模式.如果要预先处理,那么先filter,最后绑定给全局处理
     }
 
     @IBAction func clickToast() {
-
+        Observable.just("1111").filter { s in
+            return false
+        }.subscribe(onNext: { i in
+            print(i)
+        })
         //提示确认还是取消
 //        let a = Observable.create { (observer: AnyObserver<Element>) in  }.asDriver(onErrorJustReturn: false)
 

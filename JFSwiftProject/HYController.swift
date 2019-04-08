@@ -7,6 +7,7 @@ import Foundation
 import UIKit
 
 class HYController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "黄小豪"
