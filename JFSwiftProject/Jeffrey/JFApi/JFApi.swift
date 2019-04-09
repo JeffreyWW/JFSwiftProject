@@ -58,10 +58,31 @@ enum JFApiError: Int, Error {
 
 /**扩展请求,直接返回结果或者错误*/
 extension MoyaProvider where Target == JFApi {
+    func newRequest(api: JFApi) -> Observable<JFResult> {
+        return self.rx.request(api).asObservable().mapJSON().flatMap { any -> Observable<JFResult> in
+            let errorCode = JSON(any)["error_code"].intValue
+//            let errorCode = 12123
+            //守卫,必须为0,否则是失败
+            guard errorCode == 0 else {
+                //失败,通过错误码匹配枚举,匹配不到设置为known类型并问后台具体错误码表示的意义,添加到错误没居中去匹配
+                guard let apiError = JFApiError(rawValue: errorCode) else {
+                    return Observable<JFResult>.error(JFApiError.unknown)
+                }
+                //匹配到的直接设置
+                return Observable<JFResult>.just(.failure(apiError))
+            }
+            //通过==0的守卫则成功,把数据发送出去
+            return Observable<JFResult>.just(.success(JFApiResponse(JSON: any as! [String: Any])!))
+        }.catchError { error in
+            Observable.just(JFResult.failure(error))
+        }
+    }
+
+
     func request(api: JFApi) -> Driver<JFResult> {
         return self.rx.request(api).asObservable().mapJSON().flatMap { any -> Observable<JFResult> in
-//            let errorCode = JSON(any)["error_code"].intValue
-            let errorCode = 12123
+            let errorCode = JSON(any)["error_code"].intValue
+//            let errorCode = 12123
             //守卫,必须为0,否则是失败
             guard errorCode == 0 else {
                 //失败,通过错误码匹配枚举,匹配不到设置为known类型并问后台具体错误码表示的意义,添加到错误没居中去匹配
@@ -80,6 +101,22 @@ extension MoyaProvider where Target == JFApi {
 }
 
 //扩展的时候,如果是typealias,泛型需要之前的
+extension Observable where Element == JFResult {
+    func asResultDriver() -> Driver<JFResult> {
+        return self.asDriver { (error: Error) -> Driver<JFResult> in
+            return Driver.just(JFResult.failure(error))
+        }
+    }
+}
+
+extension Driver where Element == JFApiResponse {
+    func asVoid() -> Driver<Void> {
+        return self.flatMap { element -> Driver<Void> in
+            return Driver.just(())
+        }
+    }
+}
+
 extension Driver where Element == JFResult {
     func asSuccess() -> Driver<JFApiResponse> {
         return self.flatMap { (result: JFResult) -> Driver<JFApiResponse> in
@@ -103,9 +140,6 @@ extension Driver where Element == JFResult {
         }
     }
 
-    func test() {
-        print("11")
-    }
 }
 
 //extension Driver where SharedSequenceConvertibleType == Any {

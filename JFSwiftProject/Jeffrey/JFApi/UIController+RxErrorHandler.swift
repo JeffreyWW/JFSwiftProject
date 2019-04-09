@@ -20,9 +20,18 @@ extension UIViewController {
 
 
 extension Reactive where Base: UIViewController {
+
+//    var errorObserver: Binder<Error> {
+//        AnyObserver { event in  }
+//        return Binder(self.base) { (target: UIViewController, value: Error) in
+//
+//        }.mapObserver { (r: R) in  }
+//    }
+
     public func catchError(_ error: Error) -> Completable {
         var finalCatchError: Completable = Completable.empty()
         if let apiError = error as? JFApiError {
+
             finalCatchError = self.base.errorHandler(apiError)
         }
 

@@ -7,7 +7,9 @@ import Foundation
 import MBProgressHUD
 import RxSwift
 import RxCocoa
+
 private var hudKey = "hudKey"
+
 
 extension UIViewController {
     var hud: MBProgressHUD {
@@ -21,6 +23,19 @@ extension UIViewController {
 }
 
 extension Reactive where Base: MBProgressHUD {
+    var loading: Binder<String> {
+        return Binder(self.base) { (target: MBProgressHUD, value: String) in
+            self.base.mode = MBProgressHUDMode.indeterminate
+            self.base.detailsLabel.text = value
+            self.base.show(animated: true)
+        }
+    }
+
+}
+
+extension Reactive where Base: MBProgressHUD {
+
+
     public func loading(_ message: String?) -> Completable {
         return Completable.create { observer in
             self.base.mode = MBProgressHUDMode.indeterminate

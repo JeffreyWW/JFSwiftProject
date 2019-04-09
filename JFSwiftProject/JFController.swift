@@ -28,45 +28,42 @@ class JFController: UIViewController {
         let phone = self.txtPhone.rx.text.orEmpty.asDriver()
         let password = self.txtPassword.rx.text.orEmpty.asDriver()
         let nextTap = self.btnNext.rx.tap.asDriver()
-        //中间增加一个确认继续的驱动
-        let confirm: Driver<Bool> = self.confirm
+        let confirm = self.confirm
         return JFHomeViewModel(input: (phone: phone, password: password, nextTap: nextTap, confirm: confirm))
     }()
-
     var confirm: Driver<Bool> {
-        return Observable<Bool>.create { observer in
-            let controller = UIAlertController(title: "提示", message: "消息", preferredStyle: .alert)
+        return self.confirmAction.asDriver(onErrorJustReturn: false)
+    }
+    private let confirmAction: PublishSubject<Bool> = PublishSubject()
+    var confirmAlert: Binder<Void> {
+        return Binder(self) { (target: UIViewController, value: Void) in
+            let controller = UIAlertController(title: "提示", message: "确认登录么", preferredStyle: .alert)
             let action = UIAlertAction(title: "取消", style: .cancel) { action in
-                observer.onNext(false)
-                observer.onCompleted()
+                self.confirmAction.onNext(false)
             }
             let confirm = UIAlertAction(title: "确定", style: .default) { action in
-                observer.onNext(true)
-                observer.onCompleted()
+                self.confirmAction.onNext(true)
             }
             controller.addAction(action)
             controller.addAction(confirm)
             self.present(controller, animated: true)
-            return Disposables.create()
-        }.asDriver(onErrorJustReturn: false)
+        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.asObserver()
+        self.btnNext.rx.tap
     }
 
     private func asObserver() {
-        //驱动按钮可用
-        //driver不会发送错误,所以不会发生错误的,比如
-        self.hud.rx.stopLoading
+        //登录按钮可用
         self.vm.output.btnEnable.drive(self.btnNext.rx.isEnabled)
-        self.vm.output.done.drive(onNext: { i in
-            print("111")
-        })
-        self.vm.obLogin.asSuccess().drive(onNext: { i in
-            print(i)
-        })
+        self.vm.output.needConfirm.drive(self.confirmAlert)
+        //成功转化为无结果驱动驱动确认弹窗
+//        self.vm.output.loginResult.asSuccess().asVoid().drive(self.confirmAlert)
+//        self.btnNext.rx.tap.asDriver().drive(self.confirmAlert)
+
 //        self.vm.obLogin.asFailure().
 
         //catch返回结果必然是对应的,所以,结果catch来说应该也是,但catch不需要发送值,只需要完成,咋办,所以catch应该是ob类型,然外面自由转换即可
@@ -88,11 +85,10 @@ class JFController: UIViewController {
     }
 
     @IBAction func clickToast() {
-        Observable.just("1111").filter { s in
-            return false
-        }.subscribe(onNext: { i in
-            print(i)
-        })
+
+
+//        Driver.just("1").drive(aaa)
+
         //提示确认还是取消
 //        let a = Observable.create { (observer: AnyObserver<Element>) in  }.asDriver(onErrorJustReturn: false)
 

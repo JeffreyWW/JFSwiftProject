@@ -10,10 +10,8 @@ import ObjectMapper
 import SwiftyJSON
 import RxCocoa
 
+//vm只负责逻辑,弹窗等可以以驱动形式传入,vm负责拼接,具体的弹出则由vm书写
 class JFHomeViewModel: ReactiveCompatible {
-    //输入必须确定,输出其实也必须会确定,但那样的话,必须在初始化就写出如何输出,内部的每个输出无法用单独的变量,因为
-    //索性用lazy
-
 
     let input: (phone: Driver<String>, password: Driver<String>, nextTap: Driver<Void>, confirm: Driver<Bool>)
 
@@ -21,8 +19,8 @@ class JFHomeViewModel: ReactiveCompatible {
         self.input = input
     }
 
-    lazy var output: (btnEnable: Driver<Bool>, done: Driver<Void?>) = {
-        return (btnEnable: self.btnEnable, done: self.done)
+    lazy var output: (btnEnable: Driver<Bool>, needConfirm: Driver<Void>, loginResult: Driver<JFResult>) = {
+        return (btnEnable: self.btnEnable, needConfirm: self.needConfirm, loginResult: self.loginResult)
     }()
 
 
@@ -38,14 +36,28 @@ class JFHomeViewModel: ReactiveCompatible {
             return phone && password
         }
     }
+    private var needConfirm: Driver<Void> {
+        return self.input.nextTap.flatMap {
+            Driver.just(())
+        }
+    }
+
+    private var loginResult: Driver<JFResult> {
+        return   self.input.confirm.filter { b in
+            return b
+        }.flatMap { b in
+            return Driver.just(JFResult.success(JFApiResponse(result: 1)))
+        }
+    }
     private var done: Driver<Void?> {
         return self.input.nextTap.flatMap { () -> Driver<Bool> in
             return self.input.confirm
         }.flatMap { b in
-
             return b ? Driver.just(nil) : Driver.never()
         }
     }
+
+
     var jokes: [Joke]? = []
 //    lazy var obGetRandJokes = {
 //        JFProviderManager.default.request(api: .getRandJokes).flatMapCompletable { response in
@@ -54,6 +66,9 @@ class JFHomeViewModel: ReactiveCompatible {
 //        }
 //    }()
     lazy var obLogin = {
-        JFProviderManager.default.request(api: .login(phone: "", password: ""))
+        return self.done.flatMap {
+            void -> Driver<JFResult> in
+            return JFProviderManager.default.request(api: .login(phone: "", password: ""))
+        }
     }()
 }
