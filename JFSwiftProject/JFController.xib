@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JFController" customModule="JFSwiftProject" customModuleProvider="target">
             <connections>
+                <outlet property="btnAgreement" destination="AEL-CW-37L" id="cU7-fv-AfZ"/>
                 <outlet property="btnNext" destination="zRp-xu-Ipc" id="cfb-9B-dIo"/>
                 <outlet property="lbTest" destination="kxl-Xx-Vfu" id="wpO-mt-Drp"/>
                 <outlet property="txtPassword" destination="dkq-fO-6I0" id="qgo-eO-Tkd"/>

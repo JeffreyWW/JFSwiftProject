@@ -23,16 +23,21 @@ class JFController: UIViewController {
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var lbTest: UILabel!
     @IBOutlet weak var btnNext: UIButton!
+    @IBOutlet weak var btnAgreement: UIButton!
     let disposeBag = DisposeBag()
     lazy var vm: JFHomeViewModel = {
         let phone = self.txtPhone.rx.text.orEmpty.asDriver()
         let password = self.txtPassword.rx.text.orEmpty.asDriver()
+        let agreementTap = self.btnAgreement.rx.tap.asDriver()
         let nextTap = self.btnNext.rx.tap.asDriver()
         let confirm = self.confirm
-        return JFHomeViewModel(input: (phone: phone, password: password, nextTap: nextTap, confirm: confirm))
+        return JFHomeViewModel(input: (phone: phone, password: password, agreementTap: agreementTap, nextTap: nextTap, confirm: confirm))
     }()
     var confirm: Driver<Bool> {
         return self.confirmAction.asDriver(onErrorJustReturn: false)
+    }
+    var sTest: Driver<Bool> {
+        return Driver.just(self.btnAgreement.isSelected)
     }
     private let confirmAction: PublishSubject<Bool> = PublishSubject()
     var confirmAlert: Binder<Void> {
@@ -52,13 +57,21 @@ class JFController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupUI()
         self.asObserver()
-        self.btnNext.rx.tap
+    }
+
+    private func setupUI() {
+        Driver.just("协议未勾选").drive(self.btnAgreement.rx.title(for: .normal))
+        Driver.just("协议已勾选").drive(self.btnAgreement.rx.title(for: .selected))
     }
 
     private func asObserver() {
+        //协议按钮
+        self.vm.output.agreementSelected.drive(self.btnAgreement.rx.isSelected)
         //登录按钮可用
         self.vm.output.btnEnable.drive(self.btnNext.rx.isEnabled)
+        //弹出确认登录按钮
         self.vm.output.needConfirm.drive(self.confirmAlert)
         //成功转化为无结果驱动驱动确认弹窗
 //        self.vm.output.loginResult.asSuccess().asVoid().drive(self.confirmAlert)

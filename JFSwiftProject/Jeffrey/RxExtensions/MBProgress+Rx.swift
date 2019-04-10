@@ -30,7 +30,17 @@ extension Reactive where Base: MBProgressHUD {
             self.base.show(animated: true)
         }
     }
-
+    var showMessage: Binder<String?> {
+        return Binder(self.base) { (target: MBProgressHUD, value: String?) in
+            guard value != nil else {
+                return
+            }
+            self.base.mode = MBProgressHUDMode.text
+            self.base.detailsLabel.text = value
+            self.base.show(animated: true)
+            self.base.hide(animated: true, afterDelay: 2)
+        }
+    }
 }
 
 extension Reactive where Base: MBProgressHUD {
