@@ -23,8 +23,11 @@ extension UIViewController {
 }
 
 extension Reactive where Base: MBProgressHUD {
-    var loading: Binder<String> {
-        return Binder(self.base) { (target: MBProgressHUD, value: String) in
+    var loading: Binder<String?> {
+        return Binder(self.base) { (target: MBProgressHUD, value: String?) in
+            guard value != nil else {
+                return
+            }
             self.base.mode = MBProgressHUDMode.indeterminate
             self.base.detailsLabel.text = value
             self.base.show(animated: true)

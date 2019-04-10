@@ -51,6 +51,8 @@ class JFController: UIViewController {
             }
             controller.addAction(action)
             controller.addAction(confirm)
+
+
             self.present(controller, animated: true)
         }
     }
@@ -62,6 +64,8 @@ class JFController: UIViewController {
     }
 
     private func setupUI() {
+        let aa = Driver<Bool?>.just(true)
+
         Driver.just("协议未勾选").drive(self.btnAgreement.rx.title(for: .normal))
         Driver.just("协议已勾选").drive(self.btnAgreement.rx.title(for: .selected))
     }
@@ -71,30 +75,14 @@ class JFController: UIViewController {
         self.vm.output.agreementSelected.drive(self.btnAgreement.rx.isSelected)
         //登录按钮可用
         self.vm.output.btnEnable.drive(self.btnNext.rx.isEnabled)
-        //弹出确认登录按钮
+        //弹出确认登录提示
         self.vm.output.needConfirm.drive(self.confirmAlert)
-        //成功转化为无结果驱动驱动确认弹窗
-//        self.vm.output.loginResult.asSuccess().asVoid().drive(self.confirmAlert)
-//        self.btnNext.rx.tap.asDriver().drive(self.confirmAlert)
+        //提示信息绑定
+        self.vm.output.showToast.drive(MBProgressHUD.default(view: self.view).rx.showMessage)
+        //转圈
+        self.vm.output.startRequest.drive(MBProgressHUD.default(view: self.view).rx.loading)
 
-//        self.vm.obLogin.asFailure().
 
-        //catch返回结果必然是对应的,所以,结果catch来说应该也是,但catch不需要发送值,只需要完成,咋办,所以catch应该是ob类型,然外面自由转换即可
-//        self.vm.obLogin.asDriver(onErrorRecover: <#T##@escaping (Error) -> Driver<JFApiResponse>##@escaping (Swift.Error) -> RxCocoa.Driver<JFSwiftProject.JFApiResponse>#>)
-
-//        self.vm.obLogin.catchError(<#T##handler: @escaping (Error) throws -> PrimitiveSequence<SingleTrait, JFApiResponse>##@escaping (Swift.Error) throws -> RxSwift.PrimitiveSequence<RxSwift.SingleTrait, JFSwiftProject.JFApiResponse>#>)
-//        self.vm.obLogin.catchError(<#T##handler: @escaping (Error) throws -> PrimitiveSequence<SingleTrait, JFApiResponse>##@escaping (Swift.Error) throws -> RxSwift.PrimitiveSequence<RxSwift.SingleTrait, JFSwiftProject.JFApiResponse>#>)
-//maybe 转不了com,因为next和com是互斥的,s能转,理论上s发送完值后会com
-
-        //转化为drive的时候,先catch,错误则设置为never,不会返回
-//        self.vm.obLogin.asDriver { error in
-//            self.rx.catchError(error).fla
-//        }
-//        Completable.empty().asDriver(onErrorDriveWith: Driver.empty()).drive(onCompleted: {
-//            print("1")
-//        })
-//        self.vm.obLogin.flatMapCompletable { response in  }.catchError(self.rx.catchError)
-        //错误转化为驱动,控制器直接驱动rx设置好的处理模式.如果要预先处理,那么先filter,最后绑定给全局处理
     }
 
     @IBAction func clickToast() {

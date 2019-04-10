@@ -20,8 +20,8 @@ class JFHomeViewModel: ReactiveCompatible {
         self.input = input
     }
 
-    lazy var output: (agreementSelected: Driver<Bool>, btnEnable: Driver<Bool>, needConfirm: Driver<Void>, loginResult: Driver<JFResult>) = {
-        return (agreementSelected: self.agreementSelected, btnEnable: self.btnEnable, needConfirm: self.needConfirm, loginResult: self.loginResult)
+    lazy var output: (agreementSelected: Driver<Bool>, btnEnable: Driver<Bool>, needConfirm: Driver<Void>, showToast: Driver<String?>, startRequest: Driver<String?>, loginResult: Driver<JFResult>) = {
+        return (agreementSelected: self.agreementSelected, btnEnable: self.btnEnable, needConfirm: self.needConfirm, showToast: self.showToast, startRequest: self.startRequest, loginResult: self.loginResult)
     }()
 
     private var agreementSelected: Driver<Bool> {
@@ -46,7 +46,7 @@ class JFHomeViewModel: ReactiveCompatible {
     }
 
     private var verification: Driver<String?> {
-        return Driver.combineLatest(self.input.phone, self.input.password).map { (phone: String, password: String) -> String? in
+        return Driver.combineLatest(self.input.phone, self.input.password, self.agreementSelected).map { (phone: String, password: String, agreementSelected: Bool) -> String? in
             guard phone.count == 11 else {
                 return "请输入正确的手机号"
             }
@@ -54,17 +54,33 @@ class JFHomeViewModel: ReactiveCompatible {
             guard password.count > 6 else {
                 return "密码必须大于6位数"
             }
+            guard agreementSelected else {
+                return "请先勾选协议"
+            }
             return nil
         }
     }
 
+    //点击,返回报错的字符串
+    private var showToast: Driver<String?> {
+        return self.input.nextTap.withLatestFrom(self.verification)
+    }
+
 
     private var needConfirm: Driver<Void> {
-        return self.input.nextTap.withLatestFrom(self.verification).flatMap { s in
+        return self.showToast.flatMap { s -> Driver<Void> in
             guard s == nil else {
                 return Driver.never()
             }
             return Driver.just(())
+        }
+    }
+
+    private var startRequest: Driver<String?> {
+        return self.input.confirm.filter { b in
+            return b
+        }.flatMap { b in
+            Driver.just("登录中,请稍后")
         }
     }
 
@@ -77,16 +93,5 @@ class JFHomeViewModel: ReactiveCompatible {
     }
 
     var jokes: [Joke]? = []
-//    lazy var obGetRandJokes = {
-//        JFProviderManager.default.request(api: .getRandJokes).flatMapCompletable { response in
-//            self.jokes = Mapper<Joke>().mapArray(JSONObject: response.result)
-//            return Completable.empty()
-//        }
-//    }()
-//    lazy var obLogin = {
-//        return self.done.flatMap {
-//            void -> Driver<JFResult> in
-//            return JFProviderManager.default.request(api: .login(phone: "", password: ""))
-//        }
-//    }()
+
 }
