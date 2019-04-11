@@ -85,6 +85,12 @@ class JFHomeViewModel: ReactiveCompatible {
     }
 
     private var loginResult: Driver<JFResult> {
+//        return self.startRequest.withLatestFrom(JFProviderManager.default.request(api: .login(phone: "", password: "")))
+
+        return self.startRequest.flatMap { s -> Driver<JFResult> in
+            return JFProviderManager.default.request(api: .login(phone: "", password: ""))
+        }
+
         return  self.input.confirm.filter { b in
             return b
         }.flatMap { b in

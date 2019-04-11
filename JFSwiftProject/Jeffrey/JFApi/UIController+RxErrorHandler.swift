@@ -20,6 +20,11 @@ extension UIViewController {
 
 
 extension Reactive where Base: UIViewController {
+    var errorBinder: Binder<Error> {
+        return Binder(self.base) { (target: UIViewController, value: Error) in
+
+        }
+    }
 
 //    var errorObserver: Binder<Error> {
 //        AnyObserver { event in  }

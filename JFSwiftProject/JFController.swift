@@ -36,9 +36,6 @@ class JFController: UIViewController {
     var confirm: Driver<Bool> {
         return self.confirmAction.asDriver(onErrorJustReturn: false)
     }
-    var sTest: Driver<Bool> {
-        return Driver.just(self.btnAgreement.isSelected)
-    }
     private let confirmAction: PublishSubject<Bool> = PublishSubject()
     var confirmAlert: Binder<Void> {
         return Binder(self) { (target: UIViewController, value: Void) in
@@ -51,8 +48,6 @@ class JFController: UIViewController {
             }
             controller.addAction(action)
             controller.addAction(confirm)
-
-
             self.present(controller, animated: true)
         }
     }
@@ -64,45 +59,34 @@ class JFController: UIViewController {
     }
 
     private func setupUI() {
-        let aa = Driver<Bool?>.just(true)
-
-        Driver.just("协议未勾选").drive(self.btnAgreement.rx.title(for: .normal))
-        Driver.just("协议已勾选").drive(self.btnAgreement.rx.title(for: .selected))
+        Driver.just("协议未勾选").drive(self.btnAgreement.rx.title(for: .normal)).disposed(by: self.disposeBag)
+        Driver.just("协议已勾选").drive(self.btnAgreement.rx.title(for: .selected)).disposed(by: self.disposeBag)
     }
 
     private func asObserver() {
-        //协议按钮
-        self.vm.output.agreementSelected.drive(self.btnAgreement.rx.isSelected)
-        //登录按钮可用
-        self.vm.output.btnEnable.drive(self.btnNext.rx.isEnabled)
-        //弹出确认登录提示
-        self.vm.output.needConfirm.drive(self.confirmAlert)
-        //提示信息绑定
-        self.vm.output.showToast.drive(MBProgressHUD.default(view: self.view).rx.showMessage)
-        //转圈
-        self.vm.output.startRequest.drive(MBProgressHUD.default(view: self.view).rx.loading)
+        /**按钮选中监听*/
+        self.vm.output.agreementSelected.drive(self.btnAgreement.rx.isSelected).disposed(by: self.disposeBag)
+        /**按钮可用*/
+        self.vm.output.btnEnable.drive(self.btnNext.rx.isEnabled).disposed(by: self.disposeBag)
+        /**弹出确认提示,点确定才能继续请求,点击相当于是输入,needConfirm应该是传入一个监听器,内部继续监听,如果下一步又开始的话,那就
+        在内部监听里继续进行请求*/
+        self.vm.output.needConfirm.drive(self.confirmAlert).disposed(by: self.disposeBag)
+        //所有内部数据校验的错误提示
+        self.vm.output.showToast.drive(self.hud.rx.showMessage).disposed(by: self.disposeBag)
+        //开始请求,去驱动转圈
+        self.vm.output.startRequest.drive(self.hud.rx.loading).disposed(by: self.disposeBag)
 
+        //去驱动隐藏,隐藏要的是另外一个监听者,这里返回弹信息监听者,并转换成Void
+        self.vm.output.loginResult.asSuccess().drive(self.hud.rx.hidden.mapObserver { (r: JFApiResponse) in
+            //这要的是Void类型,所以先写好Void类型,并返回当前map时候需要的类型值,即字符串
+            return self.hud.rx.showMessage.mapObserver {
+                return "登录成功"
+            }
+        }).disposed(by: self.disposeBag)
 
     }
 
     @IBAction func clickToast() {
-
-
-//        Driver.just("1").drive(aaa)
-
-        //提示确认还是取消
-//        let a = Observable.create { (observer: AnyObserver<Element>) in  }.asDriver(onErrorJustReturn: false)
-
-        //把错误转换为驱动的某值
-        //input包含了所有的输入和选择(selected)等,并包含了一个确认驱动,此驱动依赖点击了确定还是取消,分别为true和false,
-        //输出设计:根据点击的时候和验证结果,为一个间接驱动
-        //在间接基础上,会有一个错误提示的驱动,提示驱动作为输出,驱动控制器弹提示
-        //简洁基础上,会有一个提示确定继续的驱动,驱动外部点击取消还是确认,确认just"true"
-        //在间接基础上,会有一个网络请求驱动,也是间接驱动
-        //网络请求基础上,分为失败驱动和数据获取的驱动,以驱动当前控制器继续下一步操作
-        //失败驱动驱动控制器扩展的分类某属性
-
-
     }
 
     @IBAction func clickHidden() {

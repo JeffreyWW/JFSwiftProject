@@ -23,6 +23,17 @@ extension UIViewController {
 }
 
 extension Reactive where Base: MBProgressHUD {
+    var hidden: Binder<AnyObserver<Void>> {
+        return Binder(self.base) { (target: MBProgressHUD, hiddenBinder: AnyObserver<Void>) in
+            self.base.completionBlock = {
+                Driver.just(()).drive(hiddenBinder)
+                self.base.completionBlock = nil
+            }
+            self.base.hide(animated: true, afterDelay: 2)
+        }
+    }
+
+
     var loading: Binder<String?> {
         return Binder(self.base) { (target: MBProgressHUD, value: String?) in
             guard value != nil else {
