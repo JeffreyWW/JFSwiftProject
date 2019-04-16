@@ -58,44 +58,44 @@ enum JFApiError: Int, Error {
 
 /**扩展请求,直接返回结果或者错误*/
 extension MoyaProvider where Target == JFApi {
-    func newRequest(api: JFApi) -> Observable<JFResult> {
-        return self.rx.request(api).asObservable().mapJSON().flatMap { any -> Observable<JFResult> in
+    func newRequest(api: JFApi) -> Single<JFResult> {
+        return self.rx.request(api).mapJSON().flatMap { any -> Single<JFResult> in
             let errorCode = JSON(any)["error_code"].intValue
 //            let errorCode = 12123
             //守卫,必须为0,否则是失败
             guard errorCode == 0 else {
                 //失败,通过错误码匹配枚举,匹配不到设置为known类型并问后台具体错误码表示的意义,添加到错误没居中去匹配
                 guard let apiError = JFApiError(rawValue: errorCode) else {
-                    return Observable<JFResult>.error(JFApiError.unknown)
+                    return Single<JFResult>.error(JFApiError.unknown)
                 }
                 //匹配到的直接设置
-                return Observable<JFResult>.just(.failure(apiError))
+                return Single<JFResult>.just(.failure(apiError))
             }
             //通过==0的守卫则成功,把数据发送出去
-            return Observable<JFResult>.just(.success(JFApiResponse(JSON: any as! [String: Any])!))
+            return Single<JFResult>.just(.success(JFApiResponse(JSON: any as! [String: Any])!))
         }.catchError { error in
-            Observable.just(JFResult.failure(error))
+            Single.just(JFResult.failure(error))
         }
     }
 
 
-    func request(api: JFApi) -> Driver<JFResult> {
-        return self.rx.request(api).asObservable().mapJSON().flatMap { any -> Observable<JFResult> in
+    func request(api: JFApi) -> Single<JFResult> {
+        return self.rx.request(api).mapJSON().flatMap { any -> Single<JFResult> in
             let errorCode = JSON(any)["error_code"].intValue
 //            let errorCode = 12123
             //守卫,必须为0,否则是失败
             guard errorCode == 0 else {
                 //失败,通过错误码匹配枚举,匹配不到设置为known类型并问后台具体错误码表示的意义,添加到错误没居中去匹配
                 guard let apiError = JFApiError(rawValue: errorCode) else {
-                    return Observable<JFResult>.error(JFApiError.unknown)
+                    return Single<JFResult>.error(JFApiError.unknown)
                 }
                 //匹配到的直接设置
-                return Observable<JFResult>.just(.failure(apiError))
+                return Single<JFResult>.just(.failure(apiError))
             }
             //通过==0的守卫则成功,把数据发送出去
-            return Observable<JFResult>.just(.success(JFApiResponse(JSON: any as! [String: Any])!))
-        }.asDriver { error in
-            Driver.just(JFResult.failure(error))
+            return Single<JFResult>.just(.success(JFApiResponse(JSON: any as! [String: Any])!))
+        }.catchError { error in
+            Single.just(JFResult.failure(error))
         }
     }
 }
@@ -109,11 +109,10 @@ extension Observable where Element == JFResult {
     }
 }
 
-extension Driver where Element == JFApiResponse {
-    func asVoid() -> Driver<Void> {
-        return self.flatMap { element -> Driver<Void> in
-            return Driver.just(())
-        }
+
+extension Single where Trait == SingleTrait, Element == JFResult {
+    func asDriver() -> Driver<JFResult> {
+        return self.asDriver(onErrorDriveWith: Driver.empty())
     }
 }
 
@@ -141,15 +140,6 @@ extension Driver where Element == JFResult {
     }
 
 }
-
-//extension Driver where SharedSequenceConvertibleType == Any {
-//
-//    func test() {
-//
-//
-//    }
-//
-//}
 
 /**apis*/
 enum JFApi {

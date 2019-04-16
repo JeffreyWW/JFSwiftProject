@@ -15,6 +15,7 @@
 		997B711F01E76D66481E945B /* TestPlugins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7BDAEFA0CE7664038BD2 /* TestPlugins.swift */; };
 		997B712B3E8F087C83DD47DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 997B725D9BEE37B55FB7CC09 /* LaunchScreen.storyboard */; };
 		997B733B435BC37023576577 /* JFHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7E9C2FD6B697BA8FE23C /* JFHomeViewModel.swift */; };
+		997B7447ABEB478F9FEEFDFE /* UIViewController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7D49CD0DF4E51648A476 /* UIViewController+Rx.swift */; };
 		997B748EAA2B7C171AB09BB2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 997B7863185848AEE6D7F48D /* Assets.xcassets */; };
 		997B75E686FF7D21D61AF8B4 /* MBProgress+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B78EA788EC2A08CBD1E91 /* MBProgress+Rx.swift */; };
 		997B76018AFD19AB5C068C32 /* JFBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B79032F90061D2D6FF906 /* JFBaseController.swift */; };
@@ -48,6 +49,7 @@
 		997B7BDAEFA0CE7664038BD2 /* TestPlugins.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestPlugins.swift; sourceTree = "<group>"; };
 		997B7CE6982E333E94C2505F /* MBProgress+JF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MBProgress+JF.swift"; sourceTree = "<group>"; };
 		997B7D3B29C88EEA680CCF88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		997B7D49CD0DF4E51648A476 /* UIViewController+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Rx.swift"; sourceTree = "<group>"; };
 		997B7D5FDC82358C57BDFF59 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		997B7D83A75249491DF88B01 /* HYController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HYController.swift; sourceTree = "<group>"; };
 		997B7E9C2FD6B697BA8FE23C /* JFHomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFHomeViewModel.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				997B78EA788EC2A08CBD1E91 /* MBProgress+Rx.swift */,
+				997B7D49CD0DF4E51648A476 /* UIViewController+Rx.swift */,
 			);
 			path = RxExtensions;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				997B7893F48D8C50698111D7 /* MBProgress+JF.swift in Sources */,
 				997B7D2ADB7496FF2A5D46B8 /* UIController+RxErrorHandler.swift in Sources */,
 				997B7C04C89F18C6BC58675B /* JFLocalError.swift in Sources */,
+				997B7447ABEB478F9FEEFDFE /* UIViewController+Rx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

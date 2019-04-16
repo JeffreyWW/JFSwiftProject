@@ -24,19 +24,17 @@ class JFController: UIViewController {
     @IBOutlet weak var lbTest: UILabel!
     @IBOutlet weak var btnNext: UIButton!
     @IBOutlet weak var btnAgreement: UIButton!
-    let disposeBag = DisposeBag()
     lazy var vm: JFHomeViewModel = {
         let phone = self.txtPhone.rx.text.orEmpty.asDriver()
         let password = self.txtPassword.rx.text.orEmpty.asDriver()
         let agreementTap = self.btnAgreement.rx.tap.asDriver()
         let nextTap = self.btnNext.rx.tap.asDriver()
-        let confirm = self.confirm
+        let confirm = self.confirmAction.asDriver(onErrorJustReturn: false)
         return JFHomeViewModel(input: (phone: phone, password: password, agreementTap: agreementTap, nextTap: nextTap, confirm: confirm))
     }()
-    var confirm: Driver<Bool> {
-        return self.confirmAction.asDriver(onErrorJustReturn: false)
-    }
+    /**确认登录驱动*/
     private let confirmAction: PublishSubject<Bool> = PublishSubject()
+    /**确认登录监听*/
     var confirmAlert: Binder<Void> {
         return Binder(self) { (target: UIViewController, value: Void) in
             let controller = UIAlertController(title: "提示", message: "确认登录么", preferredStyle: .alert)
@@ -68,29 +66,20 @@ class JFController: UIViewController {
         self.vm.output.agreementSelected.drive(self.btnAgreement.rx.isSelected).disposed(by: self.disposeBag)
         /**按钮可用*/
         self.vm.output.btnEnable.drive(self.btnNext.rx.isEnabled).disposed(by: self.disposeBag)
-        /**弹出确认提示,点确定才能继续请求,点击相当于是输入,needConfirm应该是传入一个监听器,内部继续监听,如果下一步又开始的话,那就
-        在内部监听里继续进行请求*/
+        /**弹出确认提示,点确定才能继续请求,点击相当于是输入,needConfirm应该是传入一个监听器,内部继续监听,如果下一步又开始的话,那就在内部监听里继续进行请求*/
         self.vm.output.needConfirm.drive(self.confirmAlert).disposed(by: self.disposeBag)
         //所有内部数据校验的错误提示
-        self.vm.output.showToast.drive(self.hud.rx.showMessage).disposed(by: self.disposeBag)
+        self.vm.output.showToast.drive(self.hud.rx.toast).disposed(by: self.disposeBag)
         //开始请求,去驱动转圈
         self.vm.output.startRequest.drive(self.hud.rx.loading).disposed(by: self.disposeBag)
-
-        //去驱动隐藏,隐藏要的是另外一个监听者,这里返回弹信息监听者,并转换成Void
-        self.vm.output.loginResult.asSuccess().drive(self.hud.rx.hidden.mapObserver { (r: JFApiResponse) in
-            //这要的是Void类型,所以先写好Void类型,并返回当前map时候需要的类型值,即字符串
-            return self.hud.rx.showMessage.mapObserver {
-                return "登录成功"
-            }
+        self.vm.output.loginResult.asSuccess().flatMap { response -> Driver<Void> in
+            return self.hud.rx.hidden.asDriver()
+        }.flatMap { () -> Driver<Void> in
+            self.hud.rx.toast(message: "登录成功")
+        }.drive(onNext: { i in
+            print("push界面")
         }).disposed(by: self.disposeBag)
-
-    }
-
-    @IBAction func clickToast() {
-    }
-
-    @IBAction func clickHidden() {
-        self.view.hideAllToasts()
-
+        /**失败处理*/
+        self.vm.output.loginResult.asFailure().drive(self.rx.errorBinder).disposed(by: self.disposeBag)
     }
 }

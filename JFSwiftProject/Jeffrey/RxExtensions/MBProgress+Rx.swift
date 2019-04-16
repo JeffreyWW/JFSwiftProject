@@ -11,6 +11,7 @@ import RxCocoa
 private var hudKey = "hudKey"
 
 
+/**扩展控制器,都可以自带一个hud*/
 extension UIViewController {
     var hud: MBProgressHUD {
         guard let hud = objc_getAssociatedObject(self, &hudKey) as? MBProgressHUD else {
@@ -22,18 +23,23 @@ extension UIViewController {
     }
 }
 
+
+/**扩展hud*/
 extension Reactive where Base: MBProgressHUD {
-    var hidden: Binder<AnyObserver<Void>> {
-        return Binder(self.base) { (target: MBProgressHUD, hiddenBinder: AnyObserver<Void>) in
+    /**hidden,可作为驱动停止并驱动操作,也可仅作为监听只是停止转圈*/
+    var hidden: ControlProperty<Void> {
+        return ControlProperty(values: Observable<Void>.create { observer in
             self.base.completionBlock = {
-                Driver.just(()).drive(hiddenBinder)
-                self.base.completionBlock = nil
+                observer.onNext(())
             }
-            self.base.hide(animated: true, afterDelay: 2)
-        }
+            self.base.hide(animated: true)
+            return Disposables.create()
+        }, valueSink: Binder<Void>(self.base) { (target: MBProgressHUD, void: Void) in
+            self.base.hide(animated: true)
+        })
     }
 
-
+    /**作为监听,监听转圈*/
     var loading: Binder<String?> {
         return Binder(self.base) { (target: MBProgressHUD, value: String?) in
             guard value != nil else {
@@ -44,53 +50,35 @@ extension Reactive where Base: MBProgressHUD {
             self.base.show(animated: true)
         }
     }
-    var showMessage: Binder<String?> {
-        return Binder(self.base) { (target: MBProgressHUD, value: String?) in
-            guard value != nil else {
+
+
+    /**作为驱动的toast,驱动执行在结束以后*/
+    func toast(message: String?) -> Driver<Void> {
+        return Observable<Void>.create { observer in
+            guard message != nil else {
+                return Disposables.create()
+            }
+            self.base.mode = MBProgressHUDMode.text
+            self.base.detailsLabel.text = message
+            self.base.completionBlock = {
+                observer.onNext(())
+            }
+            self.base.show(animated: true)
+            self.base.hide(animated: true, afterDelay: 2)
+            return Disposables.create()
+        }.asDriver(onErrorDriveWith: Driver.never())
+    }
+
+    var toast: Binder<String?> {
+        return Binder(self.base) { (target: MBProgressHUD, message: String?) in
+            guard message != nil else {
                 return
             }
             self.base.mode = MBProgressHUDMode.text
-            self.base.detailsLabel.text = value
+            self.base.detailsLabel.text = message
+            self.base.completionBlock = nil
             self.base.show(animated: true)
             self.base.hide(animated: true, afterDelay: 2)
-        }
-    }
-}
-
-extension Reactive where Base: MBProgressHUD {
-
-
-    public func loading(_ message: String?) -> Completable {
-        return Completable.create { observer in
-            self.base.mode = MBProgressHUDMode.indeterminate
-            self.base.detailsLabel.text = message
-            self.base.show(animated: true)
-            observer(.completed)
-            return Disposables.create()
-        }
-    }
-
-    var stopLoading: Completable {
-        return Completable.create { observer in
-            self.base.completionBlock = {
-                observer(.completed)
-            }
-            self.base.hide(animated: true)
-            return Disposables.create()
-        }
-    }
-
-
-    public func showMessage(_ message: String?) -> Completable {
-        return Completable.create { observer in
-            self.base.mode = MBProgressHUDMode.text
-            self.base.detailsLabel.text = message
-            self.base.completionBlock = {
-                observer(.completed)
-            }
-            self.base.show(animated: true)
-            self.base.hide(animated: true, afterDelay: 2)
-            return Disposables.create()
         }
     }
 }

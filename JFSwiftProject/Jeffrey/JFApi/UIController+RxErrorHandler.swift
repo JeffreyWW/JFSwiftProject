@@ -11,6 +11,7 @@ import Moya
 
 /**解决AC无法读取rx类型问题*/
 extension UIViewController {
+
     public var rx: Reactive<UIViewController> {
         get {
             return Reactive(self)
@@ -18,73 +19,45 @@ extension UIViewController {
     }
 }
 
-
+/**统一入口*/
 extension Reactive where Base: UIViewController {
     var errorBinder: Binder<Error> {
-        return Binder(self.base) { (target: UIViewController, value: Error) in
+        return Binder(self.base) { (target: UIViewController, error: Error) in
+            var binder: AnyObserver<Error>? = nil
+            if let apiError = error as? JFApiError {
+                binder = self.apiErrorBinder(e: apiError)
+            }
 
-        }
-    }
+            if let moyaError = error as? MoyaError {
+                binder = self.moyaErrorBinder(e: moyaError)
+            }
 
-//    var errorObserver: Binder<Error> {
-//        AnyObserver { event in  }
-//        return Binder(self.base) { (target: UIViewController, value: Error) in
-//
-//        }.mapObserver { (r: R) in  }
-//    }
-
-    public func catchError(_ error: Error) -> Completable {
-        var finalCatchError: Completable = Completable.empty()
-        if let apiError = error as? JFApiError {
-
-            finalCatchError = self.base.errorHandler(apiError)
-        }
-
-        if let moyaError = error as? MoyaError {
-            finalCatchError = self.base.errorHandler(moyaError)
-        }
-
-        if let localError = error as? JFLocalError {
-            finalCatchError = self.base.errorHandler(localError)
-        }
-        return self.base.hud.rx.stopLoading.andThen(finalCatchError)
-    }
-}
-
-private extension UIViewController {
-    func errorHandler(_ apiError: JFApiError) -> Completable {
-        switch (apiError) {
-        case .unknown:
-            return self.hud.rx.showMessage("后台系统异常,请稍后重试")
-        case .tokenLose:
-            //需要登出效果
-            return self.hud.rx.showMessage("登录失效,请重新登录")
-        case .tooManyTime:
-            return self.hud.rx.showMessage("请求已超过次数")
+            self.base.hud.rx.hidden.asDriver().flatMap { () -> Driver<Error> in
+                Driver.just(error)
+            }.drive(binder!).disposed(by: self.base.disposeBag)
         }
     }
 }
 
-private extension UIViewController {
-    func errorHandler(_ moyaError: MoyaError) -> Completable {
-        return Completable.empty().andThen(self.hud.rx.showMessage("网络错误"))
-    }
-}
-
-private extension UIViewController {
-    func errorHandler(_ localError: JFLocalError) -> Completable {
-        switch (localError) {
-        case .default:
-            return Completable.empty()
-        case .alert:
-            return Completable.empty()
-        case let .toast(message):
-            return self.hud.rx.showMessage(message)
-                //需要修改为确认选择的形式
-        case let .confirm(message):
-            return self.hud.rx.showMessage(message)
+/**不同类型错误处理方式*/
+private extension Reactive where Base: UIViewController {
+    func apiErrorBinder(e: JFApiError) -> AnyObserver<Error> {
+        switch e {
+        default:
+            return self.base.hud.rx.toast.mapObserver { (e: Error) in
+                "api错误"
+            }
         }
+    }
 
-        return Completable.empty().andThen(self.hud.rx.showMessage("本地错误"))
+    func moyaErrorBinder(e: MoyaError) -> AnyObserver<Error> {
+        switch e {
+        default:
+            return self.base.hud.rx.toast.mapObserver { (e: Error) in
+                "系统错误"
+            }
+        }
     }
 }
+
+
