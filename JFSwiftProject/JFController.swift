@@ -74,7 +74,7 @@ class JFController: UIViewController {
         self.vm.output.startRequest.drive(self.hud.rx.loading).disposed(by: self.disposeBag)
         self.vm.output.loginResult.asSuccess().flatMap { response -> Driver<Void> in
             return self.hud.rx.hidden.asDriver()
-        }.flatMap { () -> Driver<Void> in
+        }.flatMap {
             self.hud.rx.toast(message: "登录成功")
         }.drive(onNext: { i in
             print("push界面")

@@ -10,6 +10,7 @@
 		00444118224CCEB90082F497 /* JFController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00444117224CCEB90082F497 /* JFController.swift */; };
 		0044411A224CCF0D0082F497 /* JFController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00444119224CCF0D0082F497 /* JFController.xib */; };
 		00759002224DAE5E00FDC1E6 /* HYController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00759001224DAE5E00FDC1E6 /* HYController.xib */; };
+		0079158D2265C9FF002235AD /* JFMainController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0079158C2265C9FF002235AD /* JFMainController.xib */; };
 		370376ED32FB69EE7CF8A169 /* Pods_JFSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E76825BFAF9A44C46FBB082 /* Pods_JFSwiftProject.framework */; };
 		997B70D2586F8DB02187E14A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B798C2913485BC0F91CE7 /* ViewController.swift */; };
 		997B711F01E76D66481E945B /* TestPlugins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7BDAEFA0CE7664038BD2 /* TestPlugins.swift */; };
@@ -36,6 +37,7 @@
 		00444117224CCEB90082F497 /* JFController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JFController.swift; sourceTree = "<group>"; };
 		00444119224CCF0D0082F497 /* JFController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JFController.xib; sourceTree = "<group>"; };
 		00759001224DAE5E00FDC1E6 /* HYController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HYController.xib; sourceTree = "<group>"; };
+		0079158C2265C9FF002235AD /* JFMainController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JFMainController.xib; sourceTree = "<group>"; };
 		2E76825BFAF9A44C46FBB082 /* Pods_JFSwiftProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JFSwiftProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F593327A0789CACEC73F719 /* Pods-JFSwiftProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JFSwiftProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-JFSwiftProject/Pods-JFSwiftProject.release.xcconfig"; sourceTree = "<group>"; };
 		569D2277EF9F17B06CDDE914 /* Pods-JFSwiftProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JFSwiftProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JFSwiftProject/Pods-JFSwiftProject.debug.xcconfig"; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				997B707A73C876CD00E61F64 /* JFMainController.swift */,
+				0079158C2265C9FF002235AD /* JFMainController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0079158D2265C9FF002235AD /* JFMainController.xib in Resources */,
 				00759002224DAE5E00FDC1E6 /* HYController.xib in Resources */,
 				997B748EAA2B7C171AB09BB2 /* Assets.xcassets in Resources */,
 				0044411A224CCF0D0082F497 /* JFController.xib in Resources */,
