@@ -9,16 +9,6 @@ import RxSwift
 import RxCocoa
 import Moya
 
-/**解决AC无法读取rx类型问题*/
-extension UIViewController {
-
-    public var rx: Reactive<UIViewController> {
-        get {
-            return Reactive(self)
-        }
-    }
-}
-
 /**统一入口*/
 extension Reactive where Base: UIViewController {
     var errorBinder: Binder<Error> {

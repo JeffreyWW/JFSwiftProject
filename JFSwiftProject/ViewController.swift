@@ -18,23 +18,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let s1 = self.btnJeff.rx.controlEvent(.touchUpInside).map { () -> UIViewController in
-            JFController.init()
-        }
-        let s2 = self.btnHY.rx.controlEvent(.touchUpInside).map { () -> UIViewController in
-            HYController.init()
-        }
-        let d1 = self.btnJeff.rx.tap.map { () -> UIViewController in
-            JFMainController()
-        }
-        let d2 = self.btnHY.rx.tap.map { () -> UIViewController in
-            HYController()
-        }
-        Observable.merge(d1, d2).subscribe(onNext: { vc in
-            self.navigationController!.pushViewController(vc, animated: true)
-        }).disposed(by: self.disposeBag)
-
-
+        /**声明给出了类型则在闭包里in前面可以忽略类型,闭包入参为Void类型,则可以直接忽略掉形参*/
+        let oJeff: Observable<UIViewController> = self.btnJeff.rx.tap.map { JFMainController() }
+        let oHY: Observable<UIViewController> = self.btnHY.rx.tap.map { HYController() }
+        Observable.merge(oJeff, oHY).bind(to: self.navigationController!.rx.push).disposed(by: self.disposeBag)
         // Do any additional setup after loading the view, typically from a nib.
     }
 }
