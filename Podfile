@@ -8,6 +8,8 @@ target 'JFSwiftProject' do
   pod 'Moya/RxSwift', '~> 12.0'
   # rx Cocoa版
   pod 'RxCocoa', '~> 4.0'
+  # rx tablView处理
+  pod 'RxDataSources', '~> 3.1.0'
   # json解析
   pod 'SwiftyJSON', '~> 4.2.0'
   # 模型转换

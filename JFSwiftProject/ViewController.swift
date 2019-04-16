@@ -24,10 +24,15 @@ class ViewController: UIViewController {
         let s2 = self.btnHY.rx.controlEvent(.touchUpInside).map { () -> UIViewController in
             HYController.init()
         }
-
-        Observable.merge(s1, s2).subscribe(onNext: { vc in
+        let d1 = self.btnJeff.rx.tap.map { () -> UIViewController in
+            JFMainController()
+        }
+        let d2 = self.btnHY.rx.tap.map { () -> UIViewController in
+            HYController()
+        }
+        Observable.merge(d1, d2).subscribe(onNext: { vc in
             self.navigationController!.pushViewController(vc, animated: true)
-        })
+        }).disposed(by: self.disposeBag)
 
 
         // Do any additional setup after loading the view, typically from a nib.
