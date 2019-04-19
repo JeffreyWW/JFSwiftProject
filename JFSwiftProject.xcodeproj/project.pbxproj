@@ -23,6 +23,7 @@
 		997B767F0D388804A162B2D0 /* HYController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7D83A75249491DF88B01 /* HYController.swift */; };
 		997B7893F48D8C50698111D7 /* MBProgress+JF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7CE6982E333E94C2505F /* MBProgress+JF.swift */; };
 		997B79468AEEFC31900C18ED /* JFMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B707A73C876CD00E61F64 /* JFMainController.swift */; };
+		997B7AD2408A80755FC9FB30 /* JFMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B70CE1163E70A01A3AE21 /* JFMainViewModel.swift */; };
 		997B7BAA847080CB326BB1F4 /* JFApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7F2B5D726400119EB5C4 /* JFApi.swift */; };
 		997B7BD1490CD42017DCEBF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B7D5FDC82358C57BDFF59 /* AppDelegate.swift */; };
 		997B7C04C89F18C6BC58675B /* JFLocalError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B735A90F6EBC38C2D02E8 /* JFLocalError.swift */; };
@@ -43,6 +44,7 @@
 		569D2277EF9F17B06CDDE914 /* Pods-JFSwiftProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JFSwiftProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JFSwiftProject/Pods-JFSwiftProject.debug.xcconfig"; sourceTree = "<group>"; };
 		997B707A73C876CD00E61F64 /* JFMainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFMainController.swift; sourceTree = "<group>"; };
 		997B7084519A9B5CB7484570 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
+		997B70CE1163E70A01A3AE21 /* JFMainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFMainViewModel.swift; sourceTree = "<group>"; };
 		997B71C7BD862CCAEB724412 /* JFLoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFLoginViewModel.swift; sourceTree = "<group>"; };
 		997B72AAE4B233028954FE82 /* JFSwiftProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JFSwiftProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		997B735A90F6EBC38C2D02E8 /* JFLocalError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFLocalError.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			children = (
 				997B71C7BD862CCAEB724412 /* JFLoginViewModel.swift */,
 				997B7E9C2FD6B697BA8FE23C /* JFHomeViewModel.swift */,
+				997B70CE1163E70A01A3AE21 /* JFMainViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 				997B7447ABEB478F9FEEFDFE /* UIViewController+Rx.swift in Sources */,
 				997B79468AEEFC31900C18ED /* JFMainController.swift in Sources */,
 				997B7C9D2057FC0F7D3975BF /* UINavigationController+Rx.swift in Sources */,
+				997B7AD2408A80755FC9FB30 /* JFMainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
